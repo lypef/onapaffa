@@ -1,0 +1,31 @@
+.round80 {
+  width: 80px;
+  height: 80px;
+  background-size: cover;
+  background-position: top center;
+  border-radius: 50%;
+}
+
+.round90 {
+  width: 90px;
+  height: 90px;
+  background-size: cover;
+  background-position: top center;
+  border-radius: 50%;
+}
+
+.round100 {
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  background-position: top center;
+  border-radius: 50%;
+}
+
+.round110 {
+  width: 110px;
+  height: 110px;
+  background-size: cover;
+  background-position: top center;
+  border-radius: 50%;
+}
