@@ -44,7 +44,7 @@
     //calculo el total de páginas
     $total_paginas = ceil($num_total_registros / $TAMANO_PAGINA);
 
-    $sql = "SELECT *, REPLACE(REPLACE(estatus, 0, 'VENCIDO'), 1, 'VIGENTE') FROM `titulares` ORDER BY nombre ASC LIMIT ".$inicio.",". "$TAMANO_PAGINA";
+    $sql = "SELECT * FROM `titulares` ORDER BY nombre ASC LIMIT ".$inicio.",". "$TAMANO_PAGINA";
     $result = mysqli_query($conn,$sql);
 
     while($row = mysqli_fetch_array($result)){
@@ -73,16 +73,21 @@
         <script>
           function edit".$row[0]."(){
               Metro.dialog.create({
-                  title: '".'<img class= "round100" src="'.$row[5].'">'."',
-                  content: '<div>ELIMINAR TITULAR: ".$row[1]."<br><br>SE ELIMINARA EL TITULAR Y TODOS SUS VEHICULOS REGISTRADOS.</div>',
+                  title: '".'<center><img class= "round100" src="'.$row[5].'"></center>'."',
+                  content: '<div><center>EDITAR TITULAR: ".$row[1]."</center><br>'
+                    +'<form  action=func/edit_titular_action.php method=POST enctype=multipart/form-data>'
+                        +'<input value=".'"'.$row[0].'"'." type=hidden name=id id=id>'
+                        +'<input value=".'"'.$row[1].'"'." id=_nombre name=_nombre type=text data-role=input data-prepend=Nombre placeholder=Escriba nombre completo required>'
+                        +'<input value=".'"'.$row[2].'"'." id=domicilio name=domicilio type=text data-role=input data-prepend=Domicilio placeholder=Domicilio del titular >'
+                        +'<input value=".'"'.$row[3].'"'." id=cp name=cp type=text data-role=input data-prepend=Codigo posta placeholder=Codigo postal >'
+                        +'<input value=".'"'.$row[4].'"'." id=telefono name=telefono type=text data-role=input data-prepend=Telefono placeholder=Ingrese Telefono >'
+                        +'<input value=".'"'.$row[5].'"'." type=hidden name=_foto id=_foto>'
+                        +'<input id=foto name=foto type=file data-role=file placeholder=Buscar fotografia class=mt-2 accept=image/jpeg,image/jpg>'
+                        +'<div class=p-4 d-flex flex-justify-between border bd-default bg-scheme-secondary>'
+                            +'<button class=".'"button success"'." style=background-color: #1979ca ><span class=mif-floppy-disk></span> Guardar</button>'
+                        +'</div>'
+                    +'</form></div>',
                   actions: [
-                      {
-                          caption: '<span class=mif-floppy-disk></span> Guardar',
-                          cls: 'js-dialog-close success',
-                          onclick: function(){
-                              alert('a CONTINUACION SE ACTUALIZAN EL TITULAR.');
-                          }
-                      },
                       {
                           caption: '<span class=mif-checkmark></span> Cancelar',
                           cls: 'js-dialog-close'
@@ -119,9 +124,6 @@
             <div class='dialog-content'>
                 DOMICILIO: ".$row[2].", CP: ".$row[3]."
                 <br>TELEFONO: ".$row[4]."
-                <br>FECHA EXPEDICION: ".$row[6]."
-                <br>FECHA EXPIRACION: ".$row[7]."
-                <br>ESTATUS: ".$row[9]."
             </div>
             <div class='dialog-actions'>
                 <button class='button js-dialog-close info'><span class='mif-checkmark'></span></button>
@@ -161,3 +163,27 @@
 </ul>
 
 <?php include 'func/footer.php' ?>
+<script>
+      //location.href = "href/welcome.php"
+      var update = getUrlVars()["update"];
+      var noupdate = getUrlVars()["noupdate"];
+
+      if (update)
+      {
+          Metro.notify.create("Titular actualizado", "<span class='mif-checkmark'></span>", {cls: "success"});
+      }
+
+      if (noupdate)
+      {
+          Metro.notify.create("Titular no actualizado", "<span class='mif-cross'></span>", {cls: "alert"});
+      }
+
+      function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+        });
+        return vars;
+      }
+
+  </script>
