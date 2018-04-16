@@ -5,9 +5,13 @@
 <br>
 <center>
   <div style="width: 98%;">
-    <form >
-        <input type="text" data-role="search" placeholder="Buscar">
+
+    <form action="gest_titulares.php">
+        <input type="text" name="pagina" value="1" hidden>
+        <input type="text" placeholder="Buscar" name="search">
+        <input type=submit hidden>
     </form>
+
   </div>
 </center>
 <hr>
@@ -23,6 +27,11 @@
     </thead>
     <tbody>
     <?
+    if (isset($_GET["search"]))
+    {
+        $txt_buscar = str_replace(","," ",$_GET["search"]);
+    }
+
     $conn = mysqli_connect($host,$user,$password,$db);
     $sql = "SELECT * FROM titulares";
     $result = mysqli_query($conn,$sql) ;
@@ -30,7 +39,12 @@
     $num_total_registros = mysqli_num_rows($result);
 
     //Limito la busqueda
-    $TAMANO_PAGINA = 5;
+    if (isset($txt_buscar))
+    {
+      $TAMANO_PAGINA = 100;
+    }else {
+      $TAMANO_PAGINA = 5;
+    }
 
     //examino la página a mostrar y el inicio del registro a mostrar
     $pagina = $_GET["pagina"];
@@ -44,7 +58,12 @@
     //calculo el total de páginas
     $total_paginas = ceil($num_total_registros / $TAMANO_PAGINA);
 
-    $sql = "SELECT * FROM `titulares` ORDER BY nombre ASC LIMIT ".$inicio.",". "$TAMANO_PAGINA";
+    if (isset($_GET["search"]))
+    {
+      $sql = "SELECT * FROM `titulares` WHERE nombre LIKE '%".$txt_buscar."%' ORDER BY nombre ASC LIMIT ".$inicio.",". "$TAMANO_PAGINA";
+    }else {
+      $sql = "SELECT * FROM `titulares` ORDER BY nombre ASC LIMIT ".$inicio.",". "$TAMANO_PAGINA";
+    }
     $result = mysqli_query($conn,$sql);
 
     while($row = mysqli_fetch_array($result)){
@@ -75,7 +94,7 @@
               Metro.dialog.create({
                   title: '".'<center><img class= "round100" src="'.$row[5].'"></center>'."',
                   content: '<div><center>EDITAR TITULAR: ".$row[1]."</center><br>'
-                    +'<form  action=func/edit_titular_action.php method=POST enctype=multipart/form-data>'
+                    +'<form  action=func/edit_titular_action.php method=POST enctype=multipart/form-data name=".'"editform'.$row[0].'"'." >'
                         +'<input value=".'"'.$row[0].'"'." type=hidden name=id id=id>'
                         +'<input value=".'"'.$row[1].'"'." id=_nombre name=_nombre type=text data-role=input data-prepend=Nombre placeholder=Escriba nombre completo required>'
                         +'<input value=".'"'.$row[2].'"'." id=domicilio name=domicilio type=text data-role=input data-prepend=Domicilio placeholder=Domicilio del titular >'
@@ -83,11 +102,16 @@
                         +'<input value=".'"'.$row[4].'"'." id=telefono name=telefono type=text data-role=input data-prepend=Telefono placeholder=Ingrese Telefono >'
                         +'<input value=".'"'.$row[5].'"'." type=hidden name=_foto id=_foto>'
                         +'<input id=foto name=foto type=file data-role=file placeholder=Buscar fotografia class=mt-2 accept=image/jpeg,image/jpg>'
-                        +'<div class=p-4 d-flex flex-justify-between border bd-default bg-scheme-secondary>'
-                            +'<button class=".'"button success"'." style=background-color: #1979ca ><span class=mif-floppy-disk></span> Guardar</button>'
-                        +'</div>'
+                        +'<input type=submit hidden>'
                     +'</form></div>',
                   actions: [
+                      {
+                          caption: '<span class=mif-floppy-disk></span> Guardar',
+                          cls: 'js-dialog-close success',
+                          onclick: function(){
+                              document.editform".$row[0].".submit()
+                          }
+                      },
                       {
                           caption: '<span class=mif-checkmark></span> Cancelar',
                           cls: 'js-dialog-close'
@@ -98,14 +122,17 @@
 
           function delete".$row[0]."(){
               Metro.dialog.create({
-                  title: '".'<img class= "round100" src="'.$row[5].'">'."',
-                  content: '<div>ELIMINAR TITULAR: ".$row[1]."<br><br>SE ELIMINARA EL TITULAR Y TODOS SUS VEHICULOS REGISTRADOS.</div>',
+                  title: '".'<center><img class= "round100" src="'.$row[5].'"></center>'."',
+                  content: '<div>SE ELIMINARA EL TITULAR: ".$row[1].", TODOS SUS VEHICULOS Y TITULARES.'
+                    +'<form  action=func/delete_titular_action.php method=POST name=".'"delete'.$row[0].'"'." >'
+                        +'<input value=".'"'.$row[0].'"'." type=hidden name=id id=id>'
+                    +'</form></div>',
                   actions: [
                       {
                           caption: '<span class=mif-cross></span> Eliminar',
                           cls: 'js-dialog-close alert',
                           onclick: function(){
-                              alert('a CONTINUACION SE ELIMINA EL TITULAR.');
+                              document.delete".$row[0].".submit()
                           }
                       },
                       {
@@ -161,7 +188,6 @@
     }
     ?>
 </ul>
-
 <?php include 'func/footer.php' ?>
 <script>
       //location.href = "href/welcome.php"
@@ -176,6 +202,16 @@
       if (noupdate)
       {
           Metro.notify.create("Titular no actualizado", "<span class='mif-cross'></span>", {cls: "alert"});
+      }
+
+      if (getUrlVars()["delete"])
+      {
+          Metro.notify.create("Titular eliminado", "<span class='mif-checkmark'></span>", {cls: "success"});
+      }
+
+      if (getUrlVars()["nodelete"])
+      {
+          Metro.notify.create("Titular NO eliminado", "<span class='mif-cross'></span>", {cls: "alert"});
       }
 
       function getUrlVars() {

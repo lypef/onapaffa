@@ -29,3 +29,32 @@
   background-position: top center;
   border-radius: 50%;
 }
+
+.round120 {
+  width: 120px;
+  height: 120px;
+  background-size: cover;
+  background-position: top center;
+  border-radius: 50%;
+}
+.round130 {
+  width: 130px;
+  height: 130px;
+  background-size: cover;
+  background-position: top center;
+  border-radius: 50%;
+}
+.round140 {
+  width: 140px;
+  height: 140px;
+  background-size: cover;
+  background-position: top center;
+  border-radius: 50%;
+}
+.round150 {
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  background-position: top center;
+  border-radius: 50%;
+}
