@@ -6,7 +6,7 @@
 <center>
   <div style="width: 98%;">
 
-    <form action="gest_titulares.php">
+    <form action="gest_vehicles.php">
         <input type="text" name="pagina" value="1" hidden>
         <input type="text" placeholder="Buscar" name="search">
         <input type=submit hidden>
@@ -20,8 +20,10 @@
     <tr>
         <th>No.</th>
         <th>Fotografia</th>
-        <th>Nombre</th>
-        <th>Telefono</th>
+        <th>Titular</th>
+        <th>Engomado</th>
+        <th>Vencimiento</th>
+        <th>Estatus</th>
         <th>Opciones</th>
     </tr>
     </thead>
@@ -33,7 +35,7 @@
     }
 
     $conn = mysqli_connect($host,$user,$password,$db);
-    $sql = "SELECT * FROM titulares";
+    $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto FROM vehiculos v INNER JOIN titulares t ON v.titular = t.id";
     $result = mysqli_query($conn,$sql) ;
     //Paginacion
     $num_total_registros = mysqli_num_rows($result);
@@ -60,26 +62,31 @@
 
     if (isset($_GET["search"]))
     {
-      $sql = "SELECT * FROM `titulares` WHERE nombre LIKE '%".$txt_buscar."%' ORDER BY nombre ASC LIMIT ".$inicio.",". "$TAMANO_PAGINA";
+      $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto FROM vehiculos v INNER JOIN titulares t ON v.titular = t.id WHERE t.nombre LIKE '%".$txt_buscar."%' or v.serie LIKE '%".$txt_buscar."%' or v.modelo LIKE '%".$txt_buscar."%' or v.marca LIKE '%".$txt_buscar."%' or v.engomado LIKE '%".$txt_buscar."%'  ORDER BY v.id ";
     }else {
-      $sql = "SELECT * FROM `titulares` ORDER BY nombre ASC LIMIT ".$inicio.",". "$TAMANO_PAGINA";
+      $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto FROM vehiculos v INNER JOIN titulares t ON v.titular = t.id ORDER BY v.id desc LIMIT $inicio, $TAMANO_PAGINA";
     }
     $result = mysqli_query($conn,$sql);
+
+    $sql_t = "SELECT * FROM titulares";
+    $result_t = mysqli_query($conn,$sql_t);
+
 
     while($row = mysqli_fetch_array($result)){
     echo "
     <tr>
         <td>".$row[0]."</td>
-        <td>".'<img class= "round100" src="'.$row[5].'">'."</td>
+        <td>".'<img class= "round100" src="'.$row[12].'">'."</td>
         <td>".$row[1]."</td>
-        <td>".$row[4]."</td>
+        <td>".$row[8]."</td>
+        <td>".$row[10]."</td>
+        <td>".$row[11]."</td>
         <td>".
         '<div class="split-button">
           <button class="button" onclick="Metro.dialog.open('."'#".$row[0]."'".')" ><span class="mif-eye"></span> Detalles</button>
           <button class="split dropdown-toggle"></button>
           <ul class="d-menu" data-role="dropdown">
-              <li><a href="#"><span class="mif-plus"></span> Agregar vehiculo</a></li>
-              <li><a href="#"><span class="mif-automobile"></span> Ver vehiculos</a></li>
+              <li><a href="#"><span class="mif-loop2"></span> Renovar</a></li>
               <li class="divider"></li>
               <li><a onclick="'."edit".$row[0]."()".'"><span class="mif-pencil"></span> Editar</a></li>
               <li><a onclick="'."delete".$row[0]."()".'"><span class="mif-bin"></span> Eliminar</a></li>
@@ -92,15 +99,17 @@
         <script>
           function edit".$row[0]."(){
               Metro.dialog.create({
-                  title: '".'<center><img class= "round100" src="'.$row[5].'"></center>'."',
-                  content: '<div><center>EDITAR TITULAR: ".$row[1]."</center><br>'
-                    +'<form  action=func/edit_titular_action.php method=POST enctype=multipart/form-data name=".'"editform'.$row[0].'"'." >'
+                  title: '".'<center><img class= "round100" src="'.$row[12].'"></center>'."',
+                  content: '<div><center>EDITAR VEHICULO</center><br>'
+                    +'<form  action=func/edit_vehicle_action.php method=POST enctype=multipart/form-data name=".'"editform'.$row[0].'"'." >'
                         +'<input value=".'"'.$row[0].'"'." type=hidden name=id id=id>'
-                        +'<input value=".'"'.$row[1].'"'." id=_nombre name=_nombre type=text data-role=input data-prepend=Nombre placeholder=Escriba nombre completo required>'
-                        +'<input value=".'"'.$row[2].'"'." id=domicilio name=domicilio type=text data-role=input data-prepend=Domicilio placeholder=Domicilio del titular >'
-                        +'<input value=".'"'.$row[3].'"'." id=cp name=cp type=text data-role=input data-prepend=Codigo posta placeholder=Codigo postal >'
-                        +'<input value=".'"'.$row[4].'"'." id=telefono name=telefono type=text data-role=input data-prepend=Telefono placeholder=Ingrese Telefono >'
-                        +'<input value=".'"'.$row[5].'"'." type=hidden name=_foto id=_foto>'
+                        +'<input value=".'"'.$row[2].'"'." id=serie name=serie type=text data-role=input data-prepend=Serie: placeholder=".'"Serie del vehiculo"'." required>'
+                        +'<input value=".'"'.$row[3].'"'." id=tipo name=tipo type=text data-role=input data-prepend=Tipo: placeholder=".'"Tipo de vehiculo"'." required>'
+                        +'<input value=".'"'.$row[4].'"'." id=modelo name=modelo type=text data-role=input data-prepend=Modelo: placeholder=".'"Modelo del vehiculo"'." required>'
+                        +'<input value=".'"'.$row[5].'"'." id=marca name=marca type=text data-role=input data-prepend=Marca: placeholder=".'"Marca del vehiculo"'." required>'
+                        +'<input value=".'"'.$row[6].'"'." id=cilindros name=cilindros type=text data-role=input data-prepend=Cilindros: placeholder=".'"Numero de cilindros"'." required>'
+                        +'<input value=".'"'.$row[7].'"'." id=color name=color type=text data-role=input data-prepend=Color: placeholder=".'"Color de vehiculo"'." required>'
+                        +'<input value=".'"'.$row[8].'"'." id=engomado name=engomado type=text data-role=input data-prepend=Engomado: placeholder=".'"Engomado de vehiculo"'." required>'
                         +'<input id=foto name=foto type=file data-role=file placeholder=Buscar fotografia class=mt-2 accept=image/jpeg,image/jpg>'
                         +'<input type=submit hidden>'
                     +'</form></div>',
@@ -122,9 +131,9 @@
 
           function delete".$row[0]."(){
               Metro.dialog.create({
-                  title: '".'<center><img class= "round100" src="'.$row[5].'"></center>'."',
-                  content: '<div>SE ELIMINARA EL TITULAR: ".$row[1].", TODOS SUS VEHICULOS Y TITULARES.'
-                    +'<form  action=func/delete_titular_action.php method=POST name=".'"delete'.$row[0].'"'." >'
+                  title: '".'<center><img class= "round100" src="'.$row[12].'"></center>'."',
+                  content: '<div>¿EN REALIDAD QUIERE ELIMINAR EL VEHICULO, DESPUES DE ELIMINARLO ES IMPOSIBLE RECUPERARLO?'
+                    +'<form  action=func/delete_vehile_action.php method=POST name=".'"delete'.$row[0].'"'." >'
                         +'<input value=".'"'.$row[0].'"'." type=hidden name=id id=id>'
                     +'</form></div>',
                   actions: [
@@ -146,11 +155,19 @@
 
 
         <div class='dialog' data-role='dialog' id=".$row[0].">
-            <div class='dialog-title'>".'<center><img class= "round100" src="'.$row[5].'"></center>'."
-            ".$row[1]."</div>
+            <div class='dialog-title'>".'<center><img class= "round100" src="'.$row[12].'"></center>'."</div>
             <div class='dialog-content'>
-                DOMICILIO: ".$row[2].", CP: ".$row[3]."
-                <br>TELEFONO: ".$row[4]."
+                TITULAR: ".$row[1]."
+                <br><br>SERIE: ".$row[2]."
+                <br>TIPO: ".$row[3]."
+                <br>MODELO: ".$row[4]."
+                <br>MARCA: ".$row[5]."
+                <br>CILINDROS: ".$row[6]."
+                <br>COLOR: ".$row[7]."
+                <br>ENGOMADO: ".$row[8]."
+                <br>FECHA DE INICIO: ".$row[9]."
+                <br>FECHA DE VENCIMIENTO: ".$row[10]."
+                <br>ESTATUS: ".$row[11]."
             </div>
             <div class='dialog-actions'>
                 <button class='button js-dialog-close info'><span class='mif-checkmark'></span></button>
@@ -166,7 +183,7 @@
     <?php
     if ($pagina > 1)
     {
-        echo '<li class="page-item service"><a class="page-link" href="gest_titulares.php?pagina='.($pagina - 1 ).'"><span class="mif-arrow-left"></span></a></li>';
+        echo '<li class="page-item service"><a class="page-link" href="gest_vehicles.php?pagina='.($pagina - 1 ).'"><span class="mif-arrow-left"></span></a></li>';
     }else {
         echo '<li class="page-item service"><a class="page-link" ><span class="mif-arrow-left"></span></a></li>';
     }
@@ -176,13 +193,13 @@
          if ($pagina == $i)
             echo '<li class="page-item active"><a class="page-link" >'.$i.'</a></li>';
          else
-            echo '<li class="page-item"><a class="page-link" href="gest_titulares.php?pagina='.$i.'">'.$i.'</a></li>';
+            echo '<li class="page-item"><a class="page-link" href="gest_vehicles.php?pagina='.$i.'">'.$i.'</a></li>';
 
       }
     }
     if ($pagina < $total_paginas)
     {
-        echo '<li class="page-item service"><a class="page-link" href="gest_titulares.php?pagina='.($pagina + 1 ).'"><span class="mif-arrow-right"></span></a></li>';
+        echo '<li class="page-item service"><a class="page-link" href="gest_vehicles.php?pagina='.($pagina + 1 ).'"><span class="mif-arrow-right"></span></a></li>';
     }else {
         echo '<li class="page-item service"><a class="page-link" ><span class="mif-arrow-right"></span></a></li>';
     }
@@ -196,22 +213,22 @@
 
       if (update)
       {
-          Metro.notify.create("Titular actualizado", "<span class='mif-checkmark'></span>", {cls: "success"});
+          Metro.notify.create("Vehiculo actualizado", "<span class='mif-checkmark'></span>", {cls: "success"});
       }
 
       if (noupdate)
       {
-          Metro.notify.create("Titular no actualizado", "<span class='mif-cross'></span>", {cls: "alert"});
+          Metro.notify.create("Vehiculo no actualizado", "<span class='mif-cross'></span>", {cls: "alert"});
       }
 
       if (getUrlVars()["delete"])
       {
-          Metro.notify.create("Titular eliminado", "<span class='mif-checkmark'></span>", {cls: "success"});
+          Metro.notify.create("Vehiculo eliminado", "<span class='mif-checkmark'></span>", {cls: "success"});
       }
 
       if (getUrlVars()["nodelete"])
       {
-          Metro.notify.create("Titular NO eliminado", "<span class='mif-cross'></span>", {cls: "alert"});
+          Metro.notify.create("Vehiculo NO eliminado", "<span class='mif-cross'></span>", {cls: "alert"});
       }
 
       function getUrlVars() {
