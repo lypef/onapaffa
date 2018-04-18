@@ -75,26 +75,22 @@
 
         <!-- Inicia modulo vehiculos-->
         <div class="group">
+            <a href="add_vehicle.php">
             <button class="ribbon-button">
                     <span class="icon">
                         <span class="mif-plus"></span>
                     </span>
                 <span class="caption">Alta vehiculo</span>
-            </button>
+            </button></a>
 
-            <button class="ribbon-button">
-                    <span class="icon">
-                        <span class="mif-pencil"></span>
-                    </span>
-                <span class="caption">Editar vehiculo</span>
-            </button>
-
+            <a href="gest_vehicles.php?pagina=1">
             <button class="ribbon-button">
                     <span class="icon">
                         <span class="mif-automobile"></span>
                     </span>
                 <span class="caption">Gestionar</span>
             </button>
+            </a>
 
             <span class="title">Vehiculos</span>
         </div>
