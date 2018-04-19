@@ -98,19 +98,13 @@
 
         <!-- Inicia modulo Adicionales-->
         <div class="group">
-            <button class="ribbon-button">
-                    <span class="icon">
-                        <span class="mif-note-add"></span>
-                    </span>
-                <span class="caption">Agregar adicional</span>
-            </button>
-
+            <a href="gest_adicionales.php?pagina=1">
             <button class="ribbon-button">
                     <span class="icon">
                         <span class="mif-chart-bars"></span>
                     </span>
                 <span class="caption">Gestionar</span>
-            </button>
+            </button></a>
 
             <span class="title">Adicionales</span>
         </div>

@@ -19,9 +19,9 @@
     <thead>
     <tr>
         <th>No.</th>
-        <th>Fotografia</th>
+        <th>Vehiculo</th>
         <th>Titular</th>
-        <th>Engomado</th>
+        <th>Adicional</th>
         <th>Vencimiento</th>
         <th>Estatus</th>
         <th>Opciones</th>
@@ -74,15 +74,15 @@
 
     if (isset($_GET["search"]))
     {
-      $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto, t.id FROM vehiculos v INNER JOIN titulares t ON v.titular = t.id WHERE t.nombre LIKE '%".$txt_buscar."%' or v.serie LIKE '%".$txt_buscar."%' or v.modelo LIKE '%".$txt_buscar."%' or v.marca LIKE '%".$txt_buscar."%' or v.engomado LIKE '%".$txt_buscar."%'  ORDER BY v.id ";
+      $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto FROM vehiculos v INNER JOIN titulares t ON v.titular = t.id WHERE t.nombre LIKE '%".$txt_buscar."%' or v.serie LIKE '%".$txt_buscar."%' or v.modelo LIKE '%".$txt_buscar."%' or v.marca LIKE '%".$txt_buscar."%' or v.engomado LIKE '%".$txt_buscar."%'  ORDER BY v.id ";
     }
     elseif (isset($_GET["titular"]))
     {
         $titular = $_GET["titular"];
-        $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto, t.id FROM vehiculos v INNER JOIN titulares t ON v.titular = t.id where t.id =  $titular ";
+        $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto FROM vehiculos v INNER JOIN titulares t ON v.titular = t.id where t.id =  $titular ";
     }
     else {
-      $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto, t.id FROM vehiculos v INNER JOIN titulares t ON v.titular = t.id ORDER BY v.id desc LIMIT $inicio, $TAMANO_PAGINA";
+      $sql = "SELECT a.id, v.foto, t.nombre, a.nombre, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), a.domicilio, a.cp, a.telefono, a.foto from vehiculos v, titulares t, adicionales a where a.titular = t.id and a.vehiculo = v.id ORDER BY v.id desc LIMIT $inicio, $TAMANO_PAGINA";
     }
     $result = mysqli_query($conn,$sql);
 
@@ -94,21 +94,16 @@
     echo "
     <tr>
         <td>".$row[0]."</td>
-        <td>".'<img class= "round100" src="'.$row[12].'">'."</td>
-        <td>".$row[1]."</td>
-        <td>".$row[8]."</td>
-        <td>".$row[10]."</td>
-        <td>".$row[11]."</td>
+        <td>".'<img class= "round100" src="'.$row[1].'">'."</td>
+        <td>".$row[2]."</td>
+        <td>".$row[3]."</td>
+        <td>".$row[4]."</td>
+        <td>".$row[5]."</td>
         <td>".
         '<div class="split-button">
           <button class="button" onclick="Metro.dialog.open('."'#".$row[0]."'".')" ><span class="mif-eye"></span> Detalles</button>
           <button class="split dropdown-toggle"></button>
           <ul class="d-menu" data-role="dropdown">
-              <li><a href="#"><span class="mif-loop2"></span> Renovar</a></li>
-              <li class="divider"></li>
-              <li><a onclick="'."adicional".$row[0]."()".'"><span class="mif-plus"></span> Nuevo adicional</a></li>
-              <li><a href="#"><span class="mif-eye"></span> Ver adicionales</a></li>
-              <li class="divider"></li>
               <li><a onclick="'."edit".$row[0]."()".'"><span class="mif-pencil"></span> Editar</a></li>
               <li><a onclick="'."delete".$row[0]."()".'"><span class="mif-bin"></span> Eliminar</a></li>
           </ul>
@@ -118,40 +113,10 @@
         ."</td>
 
         <script>
-          function adicional".$row[0]."(){
-              Metro.dialog.create({
-                  title: '".'<center><img class= "round100" src="'.$row[12].'"></center>'."',
-                  content: '<div><center>AGREGAR ADICIONAL</center><br>'
-                    +'<form  action=func/add_adicional_vehicle_action.php method=POST enctype=multipart/form-data name=".'"adicional'.$row[0].'"'." >'
-                        +'<input value=".'"'.$row[0].'"'." type=hidden name=vehiculo id=vehiculo>'
-                        +'<input value=".'"'.$row[13].'"'." type=hidden name=titular id=titular>'
-                        +'<input id=nombre name=nombre type=text data-role=input data-prepend=Nombre: placeholder=".'"Nombre de adicional"'." required>'
-                        +'<input id=domicilio name=domicilio type=text data-role=input data-prepend=Domicilio: placeholder=".'"Domicilio de adicional"'." >'
-                        +'<input id=cp name=cp type=text data-role=input data-prepend=CP: placeholder=".'"Codigo postal"'." >'
-                        +'<input id=telefono name=telefono type=text data-role=input data-prepend=Telefono: placeholder=".'"Telefono | celular"'." >'
-                        +'<input id=foto name=foto type=file data-role=file placeholder=Buscar fotografia class=mt-2 accept=image/jpeg,image/jpg>'
-                        +'<input type=submit hidden>'
-                    +'</form></div>',
-                  actions: [
-                      {
-                          caption: '<span class=mif-floppy-disk></span> Guardar',
-                          cls: 'js-dialog-close success',
-                          onclick: function(){
-                              document.adicional".$row[0].".submit()
-                          }
-                      },
-                      {
-                          caption: '<span class=mif-checkmark></span> Cancelar',
-                          cls: 'js-dialog-close'
-                      }
-                  ]
-              });
-          }
-
           function edit".$row[0]."(){
               Metro.dialog.create({
-                  title: '".'<center><img class= "round100" src="'.$row[12].'"></center>'."',
-                  content: '<div><center>EDITAR VEHICULO</center><br>'
+                  title: '".'<center><img class= "round100" src="'.$row[9].'"></center>'."',
+                  content: '<div><center>EDITAR ADICIONAL</center><br>'
                     +'<form  action=func/edit_vehicle_action.php method=POST enctype=multipart/form-data name=".'"editform'.$row[0].'"'." >'
                         +'<input value=".'"'.$row[0].'"'." type=hidden name=id id=id>'
                         +'<input value=".'"'.$row[2].'"'." id=serie name=serie type=text data-role=input data-prepend=Serie: placeholder=".'"Serie del vehiculo"'." required>'
@@ -182,9 +147,9 @@
 
           function delete".$row[0]."(){
               Metro.dialog.create({
-                  title: '".'<center><img class= "round100" src="'.$row[12].'"></center>'."',
-                  content: '<div>¿EN REALIDAD QUIERE ELIMINAR EL VEHICULO, DESPUES DE ELIMINARLO ES IMPOSIBLE RECUPERARLO?'
-                    +'<form  action=func/delete_vehile_action.php method=POST name=".'"delete'.$row[0].'"'." >'
+                  title: '".'<center><img class= "round100" src="'.$row[1].'"></center>'."',
+                  content: '<div><CENTER>¿ELIMINAR ADICIONAL?</CENTER><br> TITULAR: ".'"'.$row[2].'"'."<br> ADICIONAL: ".'"'.$row[3].'"'."'
+                    +'<form  action=func/delete_adicional_action.php method=POST name=".'"delete'.$row[0].'"'." >'
                         +'<input value=".'"'.$row[0].'"'." type=hidden name=id id=id>'
                     +'</form></div>',
                   actions: [
@@ -206,19 +171,15 @@
 
 
         <div class='dialog' data-role='dialog' id=".$row[0].">
-            <div class='dialog-title'>".'<center><img class= "round100" src="'.$row[12].'"></center>'."</div>
+            <div class='dialog-title'>".'<center><img class= "round100" src="'.$row[1].'"></center>'."</div>
             <div class='dialog-content'>
-                TITULAR: ".$row[1]."
-                <br><br>SERIE: ".$row[2]."
-                <br>TIPO: ".$row[3]."
-                <br>MODELO: ".$row[4]."
-                <br>MARCA: ".$row[5]."
-                <br>CILINDROS: ".$row[6]."
-                <br>COLOR: ".$row[7]."
-                <br>ENGOMADO: ".$row[8]."
-                <br>FECHA DE INICIO: ".$row[9]."
-                <br>FECHA DE VENCIMIENTO: ".$row[10]."
-                <br>ESTATUS: ".$row[11]."
+                ADICIONAL: ".$row[3]."
+                <br>TITULAR: ".$row[2]."
+                <br><br>DOMICILIO: ".$row[6]."
+                <br>CP: ".$row[7]."
+                <br>TELEFONO: ".$row[8]."
+                <br>VENCIMIENTO: ".$row[4]."
+                <br>ESTATUS: ".$row[5]."
             </div>
             <div class='dialog-actions'>
                 <button class='button js-dialog-close info'><span class='mif-checkmark'></span></button>
@@ -274,12 +235,12 @@
 
       if (getUrlVars()["delete"])
       {
-          Metro.notify.create("Vehiculo eliminado con exito", "<span class='mif-checkmark'></span> Eliminado", {cls: "success"});
+          Metro.notify.create("Adicional eliminado con exito", "<span class='mif-checkmark'></span> Eliminado", {cls: "success"});
       }
 
       if (getUrlVars()["nodelete"])
       {
-          Metro.notify.create("Vehiculo NO eliminado", "<span class='mif-cross'></span> No eliminado", {cls: "alert"});
+          Metro.notify.create("Adicional NO eliminado", "<span class='mif-cross'></span> No eliminado", {cls: "alert"});
       }
 
       if (getUrlVars()["success"])

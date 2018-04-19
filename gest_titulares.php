@@ -78,8 +78,7 @@
           <button class="button" onclick="Metro.dialog.open('."'#".$row[0]."'".')" ><span class="mif-eye"></span> Detalles</button>
           <button class="split dropdown-toggle"></button>
           <ul class="d-menu" data-role="dropdown">
-              <li><a href="#"><span class="mif-plus"></span> Agregar vehiculo</a></li>
-              <li><a href="#"><span class="mif-automobile"></span> Ver vehiculos</a></li>
+              <li><a href="gest_vehicles.php?pagina=1&titular='.$row[0].'"><span class="mif-automobile"></span> Ver vehiculos</a></li>
               <li class="divider"></li>
               <li><a onclick="'."edit".$row[0]."()".'"><span class="mif-pencil"></span> Editar</a></li>
               <li><a onclick="'."delete".$row[0]."()".'"><span class="mif-bin"></span> Eliminar</a></li>
@@ -90,7 +89,8 @@
         ."</td>
 
         <script>
-          function edit".$row[0]."(){
+
+        function edit".$row[0]."(){
               Metro.dialog.create({
                   title: '".'<center><img class= "round100" src="'.$row[5].'"></center>'."',
                   content: '<div><center>EDITAR TITULAR: ".$row[1]."</center><br>'
@@ -196,22 +196,22 @@
 
       if (update)
       {
-          Metro.notify.create("Titular actualizado", "<span class='mif-checkmark'></span>", {cls: "success"});
+          Metro.notify.create("Titular actualizado con exito", "<span class='mif-checkmark'></span> Actualizado", {cls: "success"});
       }
 
       if (noupdate)
       {
-          Metro.notify.create("Titular no actualizado", "<span class='mif-cross'></span>", {cls: "alert"});
+          Metro.notify.create("Titular no actualizado", "<span class='mif-cross'></span> No actualizado", {cls: "alert"});
       }
 
       if (getUrlVars()["delete"])
       {
-          Metro.notify.create("Titular eliminado", "<span class='mif-checkmark'></span>", {cls: "success"});
+          Metro.notify.create("Titular eliminado con exito", "<span class='mif-checkmark'></span> Eliminado", {cls: "success"});
       }
 
       if (getUrlVars()["nodelete"])
       {
-          Metro.notify.create("Titular NO eliminado", "<span class='mif-cross'></span>", {cls: "alert"});
+          Metro.notify.create("Titular NO eliminado", "<span class='mif-cross'></span> No eliminado", {cls: "alert"});
       }
 
       function getUrlVars() {
