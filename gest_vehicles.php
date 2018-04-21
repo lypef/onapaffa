@@ -107,10 +107,10 @@
               <li><a href="#"><span class="mif-loop2"></span> Renovar</a></li>
               <li class="divider"></li>
               <li><a onclick="'."adicional".$row[0]."()".'"><span class="mif-plus"></span> Nuevo adicional</a></li>
-              <li><a href="#"><span class="mif-eye"></span> Ver adicionales</a></li>
+              <li><a href="gest_adicionales.php?pagina=1&vehicle='.$row[0].'"><span class="mif-eye"></span> Ver adicionales</a></li>
               <li class="divider"></li>
-              <li><a onclick="'."edit".$row[0]."()".'"><span class="mif-pencil"></span> Editar</a></li>
-              <li><a onclick="'."delete".$row[0]."()".'"><span class="mif-bin"></span> Eliminar</a></li>
+              <li><a onclick="'."edit".$row[0]."()".'"><span class="mif-pencil"></span> Editar vehiculo</a></li>
+              <li><a onclick="'."delete".$row[0]."()".'"><span class="mif-bin"></span> Eliminar vehiculo</a></li>
           </ul>
       </div>
 

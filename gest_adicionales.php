@@ -6,7 +6,7 @@
 <center>
   <div style="width: 98%;">
 
-    <form action="gest_vehicles.php">
+    <form action="gest_adicionales.php">
         <input type="text" name="pagina" value="1" hidden>
         <input type="text" placeholder="Buscar" name="search">
         <input type=submit hidden>
@@ -18,11 +18,9 @@
 <table class="table striped">
     <thead>
     <tr>
-        <th>No.</th>
         <th>Vehiculo</th>
         <th>Titular</th>
         <th>Adicional</th>
-        <th>Vencimiento</th>
         <th>Estatus</th>
         <th>Opciones</th>
     </tr>
@@ -37,15 +35,15 @@
     $conn = mysqli_connect($host,$user,$password,$db);
     if (isset($_GET["search"]))
     {
-      $sql = "SELECT v.id FROM vehiculos v INNER JOIN titulares t ON v.titular = t.id WHERE t.nombre LIKE '%".$txt_buscar."%' or v.serie LIKE '%".$txt_buscar."%' or v.modelo LIKE '%".$txt_buscar."%' or v.marca LIKE '%".$txt_buscar."%' or v.engomado LIKE '%".$txt_buscar."%'  ORDER BY v.id ";
+      $sql = "SELECT a.id from vehiculos v, titulares t, adicionales a where a.titular = t.id and a.vehiculo = v.id and t.nombre LIKE '%".$txt_buscar."%' or a.titular = t.id and a.vehiculo = v.id and a.nombre LIKE '%".$txt_buscar."%' or a.titular = t.id and a.vehiculo = v.id and v.modelo LIKE '%".$txt_buscar."%' or a.titular = t.id and a.vehiculo = v.id and v.marca LIKE '%".$txt_buscar."%' or a.titular = t.id and a.vehiculo = v.id and v.engomado LIKE '%".$txt_buscar."%'  ORDER BY v.id";
     }
-    elseif (isset($_GET["titular"]))
+    elseif (isset($_GET["vehicle"]))
     {
-        $titular = $_GET["titular"];
-        $sql = "SELECT v.id FROM vehiculos v INNER JOIN titulares t ON v.titular = t.id where t.id =  $titular ";
+        $vehicle = $_GET["vehicle"];
+        $sql = "SELECT a.id from vehiculos v, titulares t, adicionales a where a.titular = t.id and a.vehiculo = v.id and v.id =  $vehicle ORDER BY v.id ";
     }
     else {
-      $sql = "SELECT v.id FROM vehiculos v INNER JOIN titulares t ON v.titular = t.id ORDER BY v.id ";
+      $sql = "SELECT a.id from vehiculos v, titulares t, adicionales a where a.titular = t.id and a.vehiculo = v.id ";
     }
 
     $result = mysqli_query($conn,$sql) ;
@@ -74,15 +72,15 @@
 
     if (isset($_GET["search"]))
     {
-      $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto FROM vehiculos v INNER JOIN titulares t ON v.titular = t.id WHERE t.nombre LIKE '%".$txt_buscar."%' or v.serie LIKE '%".$txt_buscar."%' or v.modelo LIKE '%".$txt_buscar."%' or v.marca LIKE '%".$txt_buscar."%' or v.engomado LIKE '%".$txt_buscar."%'  ORDER BY v.id ";
+      $sql = "SELECT a.id, v.foto, t.nombre, a.nombre, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), a.domicilio, a.cp, a.telefono, a.foto, t.fotografia from vehiculos v, titulares t, adicionales a where a.titular = t.id and a.vehiculo = v.id and t.nombre LIKE '%".$txt_buscar."%' or a.titular = t.id and a.vehiculo = v.id and a.nombre LIKE '%".$txt_buscar."%' or a.titular = t.id and a.vehiculo = v.id and v.modelo LIKE '%".$txt_buscar."%' or a.titular = t.id and a.vehiculo = v.id and v.marca LIKE '%".$txt_buscar."%' or a.titular = t.id and a.vehiculo = v.id and v.engomado LIKE '%".$txt_buscar."%'  ORDER BY v.id";
     }
-    elseif (isset($_GET["titular"]))
+    elseif (isset($_GET["vehicle"]))
     {
-        $titular = $_GET["titular"];
-        $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto FROM vehiculos v INNER JOIN titulares t ON v.titular = t.id where t.id =  $titular ";
+        $vehicle = $_GET["vehicle"];
+        $sql = "SELECT a.id, v.foto, t.nombre, a.nombre, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), a.domicilio, a.cp, a.telefono, a.foto, t.fotografia from vehiculos v, titulares t, adicionales a where a.titular = t.id and a.vehiculo = v.id and v.id =  $vehicle ORDER BY v.id ";
     }
     else {
-      $sql = "SELECT a.id, v.foto, t.nombre, a.nombre, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), a.domicilio, a.cp, a.telefono, a.foto from vehiculos v, titulares t, adicionales a where a.titular = t.id and a.vehiculo = v.id ORDER BY v.id desc LIMIT $inicio, $TAMANO_PAGINA";
+      $sql = "SELECT a.id, v.foto, t.nombre, a.nombre, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), a.domicilio, a.cp, a.telefono, a.foto, t.fotografia from vehiculos v, titulares t, adicionales a  where a.titular = t.id and a.vehiculo = v.id ORDER BY v.id desc LIMIT $inicio, $TAMANO_PAGINA";
     }
     $result = mysqli_query($conn,$sql);
 
@@ -93,19 +91,17 @@
     while($row = mysqli_fetch_array($result)){
     echo "
     <tr>
-        <td>".$row[0]."</td>
         <td>".'<img class= "round100" src="'.$row[1].'">'."</td>
-        <td>".$row[2]."</td>
-        <td>".$row[3]."</td>
-        <td>".$row[4]."</td>
+        <td>".'<img class= "round100" src="'.$row[10].'">'." ".$row[2]."</td>
+        <td>".'<img class= "round100" src="'.$row[9].'">'." ".$row[3]."</td>
         <td>".$row[5]."</td>
         <td>".
         '<div class="split-button">
           <button class="button" onclick="Metro.dialog.open('."'#".$row[0]."'".')" ><span class="mif-eye"></span> Detalles</button>
           <button class="split dropdown-toggle"></button>
           <ul class="d-menu" data-role="dropdown">
-              <li><a onclick="'."edit".$row[0]."()".'"><span class="mif-pencil"></span> Editar</a></li>
-              <li><a onclick="'."delete".$row[0]."()".'"><span class="mif-bin"></span> Eliminar</a></li>
+              <li><a onclick="'."edit".$row[0]."()".'"><span class="mif-pencil"></span> Editar adicional</a></li>
+              <li><a onclick="'."delete".$row[0]."()".'"><span class="mif-bin"></span> Eliminar adicional</a></li>
           </ul>
       </div>
 
@@ -115,19 +111,16 @@
         <script>
           function edit".$row[0]."(){
               Metro.dialog.create({
-                  title: '".'<center><img class= "round100" src="'.$row[9].'"></center>'."',
+                  title: '".'<center><img class= "round100" src="'.$row[1].'"></center>'."',
                   content: '<div><center>EDITAR ADICIONAL</center><br>'
-                    +'<form  action=func/edit_vehicle_action.php method=POST enctype=multipart/form-data name=".'"editform'.$row[0].'"'." >'
-                        +'<input value=".'"'.$row[0].'"'." type=hidden name=id id=id>'
-                        +'<input value=".'"'.$row[2].'"'." id=serie name=serie type=text data-role=input data-prepend=Serie: placeholder=".'"Serie del vehiculo"'." required>'
-                        +'<input value=".'"'.$row[3].'"'." id=tipo name=tipo type=text data-role=input data-prepend=Tipo: placeholder=".'"Tipo de vehiculo"'." required>'
-                        +'<input value=".'"'.$row[4].'"'." id=modelo name=modelo type=text data-role=input data-prepend=Modelo: placeholder=".'"Modelo del vehiculo"'." required>'
-                        +'<input value=".'"'.$row[5].'"'." id=marca name=marca type=text data-role=input data-prepend=Marca: placeholder=".'"Marca del vehiculo"'." required>'
-                        +'<input value=".'"'.$row[6].'"'." id=cilindros name=cilindros type=text data-role=input data-prepend=Cilindros: placeholder=".'"Numero de cilindros"'." required>'
-                        +'<input value=".'"'.$row[7].'"'." id=color name=color type=text data-role=input data-prepend=Color: placeholder=".'"Color de vehiculo"'." required>'
-                        +'<input value=".'"'.$row[8].'"'." id=engomado name=engomado type=text data-role=input data-prepend=Engomado: placeholder=".'"Engomado de vehiculo"'." required>'
-                        +'<input id=foto name=foto type=file data-role=file placeholder=Buscar fotografia class=mt-2 accept=image/jpeg,image/jpg>'
-                        +'<input type=submit hidden>'
+                    +'<form  action=func/edit_adicional_action.php method=POST enctype=multipart/form-data name=".'"editform'.$row[0].'"'." >'
+                      +'<input value=".'"'.$row[0].'"'." type=hidden name=adicional id=adicional>'
+                      +'<input value=".'"'.$row[3].'"'." id=nombre name=nombre type=text data-role=input data-prepend=Nombre: placeholder=".'"Nombre de adicional"'." required>'
+                      +'<input value=".'"'.$row[6].'"'." id=domicilio name=domicilio type=text data-role=input data-prepend=Domicilio: placeholder=".'"Domicilio de adicional"'." >'
+                      +'<input value=".'"'.$row[7].'"'." id=cp name=cp type=text data-role=input data-prepend=CP: placeholder=".'"Codigo postal"'." >'
+                      +'<input value=".'"'.$row[8].'"'." id=telefono name=telefono type=text data-role=input data-prepend=Telefono: placeholder=".'"Telefono | celular"'." >'
+                      +'<input id=foto name=foto type=file data-role=file placeholder=Buscar fotografia class=mt-2 accept=image/jpeg,image/jpg>'
+                      +'<input type=submit hidden>'
                     +'</form></div>',
                   actions: [
                       {
@@ -195,7 +188,7 @@
     <?php
     if ($pagina > 1)
     {
-        echo '<li class="page-item service"><a class="page-link" href="gest_vehicles.php?pagina='.($pagina - 1 ).'"><span class="mif-arrow-left"></span></a></li>';
+        echo '<li class="page-item service"><a class="page-link" href="gest_adicionales.php?pagina='.($pagina - 1 ).'"><span class="mif-arrow-left"></span></a></li>';
     }else {
         echo '<li class="page-item service"><a class="page-link" ><span class="mif-arrow-left"></span></a></li>';
     }
@@ -205,13 +198,13 @@
          if ($pagina == $i)
             echo '<li class="page-item active"><a class="page-link" >'.$i.'</a></li>';
          else
-            echo '<li class="page-item"><a class="page-link" href="gest_vehicles.php?pagina='.$i.'">'.$i.'</a></li>';
+            echo '<li class="page-item"><a class="page-link" href="gest_adicionales.php?pagina='.$i.'">'.$i.'</a></li>';
 
       }
     }
     if ($pagina < $total_paginas)
     {
-        echo '<li class="page-item service"><a class="page-link" href="gest_vehicles.php?pagina='.($pagina + 1 ).'"><span class="mif-arrow-right"></span></a></li>';
+        echo '<li class="page-item service"><a class="page-link" href="gest_adicionales.php?pagina='.($pagina + 1 ).'"><span class="mif-arrow-right"></span></a></li>';
     }else {
         echo '<li class="page-item service"><a class="page-link" ><span class="mif-arrow-right"></span></a></li>';
     }
@@ -220,17 +213,14 @@
 <?php include 'func/footer.php' ?>
 <script>
       //location.href = "href/welcome.php"
-      var update = getUrlVars()["update"];
-      var noupdate = getUrlVars()["noupdate"];
-
-      if (update)
+      if (getUrlVars()["update"])
       {
-          Metro.notify.create("Vehiculo actualizado", "<span class='mif-checkmark'></span> Actualizado", {cls: "success"});
+          Metro.notify.create("Adicional actualizado", "<span class='mif-checkmark'></span> Actualizado", {cls: "success"});
       }
 
-      if (noupdate)
+      if (getUrlVars()["noupdate"])
       {
-          Metro.notify.create("Vehiculo no actualizado", "<span class='mif-cross'></span> No actualizado", {cls: "alert"});
+          Metro.notify.create("Adicional no actualizado", "<span class='mif-cross'></span> No actualizado", {cls: "alert"});
       }
 
       if (getUrlVars()["delete"])

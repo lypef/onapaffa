@@ -69,6 +69,16 @@
                 <span class="caption">Gestionar</span>
             </button>
             </a>
+
+            <a href="gest_titulares.php?pagina=1">
+            <button class="ribbon-button">
+                    <span class="icon">
+                        <span class="mif-search"></span>
+                    </span>
+                <span class="caption">Buscar</span>
+            </button>
+            </a>
+
             <span class="title">Titulares</span>
         </div>
         <!-- Finaliza modulo titulaes-->
@@ -91,7 +101,14 @@
                 <span class="caption">Gestionar</span>
             </button>
             </a>
-
+            <a href="gest_titulares.php?pagina=1">
+            <button class="ribbon-button">
+                    <span class="icon">
+                        <span class="mif-search"></span>
+                    </span>
+                <span class="caption">Buscar</span>
+            </button>
+            </a>
             <span class="title">Vehiculos</span>
         </div>
         <!-- Finaliza modulo vehiculos-->
@@ -105,7 +122,14 @@
                     </span>
                 <span class="caption">Gestionar</span>
             </button></a>
-
+            <a href="gest_titulares.php?pagina=1">
+            <button class="ribbon-button">
+                    <span class="icon">
+                        <span class="mif-search"></span>
+                    </span>
+                <span class="caption">Buscar</span>
+            </button>
+            </a>
             <span class="title">Adicionales</span>
         </div>
         <!-- Finaliza modulo Adicionales-->
