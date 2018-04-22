@@ -20,8 +20,8 @@
 <!-- Menu -->
 <nav data-role="ribbonmenu">
   <ul class="tabs-holder">
-      <li class="static"><a href="func/logout.php">SALIR</a></li>
-      <li class="static"><a href="manager.php">HOME</a></li>
+      <li class="static"><a href="func/logout.php"><span class="mif-cross"></span> SALIR</a></li>
+      <li class="static"><a href="manager.php"><span class="mif-home"></span> <? echo $_SESSION['usuario_name']; ?></a></li>
       <li><a href="#section-usuarios">Usuarios</a></li>
   </ul>
 
@@ -70,16 +70,14 @@
             </button>
             </a>
 
-            <a href="gest_titulares.php?pagina=1">
-            <button class="ribbon-button">
+            <button onclick="search_titular()" class="ribbon-button">
                     <span class="icon">
                         <span class="mif-search"></span>
                     </span>
                 <span class="caption">Buscar</span>
             </button>
-            </a>
-
             <span class="title">Titulares</span>
+
         </div>
         <!-- Finaliza modulo titulaes-->
 
@@ -101,14 +99,14 @@
                 <span class="caption">Gestionar</span>
             </button>
             </a>
-            <a href="gest_titulares.php?pagina=1">
-            <button class="ribbon-button">
+
+            <button onclick="search_vehiculos()" class="ribbon-button">
                     <span class="icon">
                         <span class="mif-search"></span>
                     </span>
                 <span class="caption">Buscar</span>
             </button>
-            </a>
+
             <span class="title">Vehiculos</span>
         </div>
         <!-- Finaliza modulo vehiculos-->
@@ -122,14 +120,14 @@
                     </span>
                 <span class="caption">Gestionar</span>
             </button></a>
-            <a href="gest_titulares.php?pagina=1">
-            <button class="ribbon-button">
+
+            <button onclick="search_adicionales()" class="ribbon-button">
                     <span class="icon">
                         <span class="mif-search"></span>
                     </span>
                 <span class="caption">Buscar</span>
             </button>
-            </a>
+
             <span class="title">Adicionales</span>
         </div>
         <!-- Finaliza modulo Adicionales-->
@@ -191,6 +189,88 @@
       </div>
   </div>
 </nav>
+<?
+echo
+"
+<script>
+function search_titular(){
+    Metro.dialog.create({
+        title: '<p>',
+        content: '<div>'
+        +'<form  action=gest_titulares.php method=GET >'
+            +'<input  type=text name=pagina id=pagina value=1 hidden>'
+            +'<input  id=search name=search type=text  data-role=input data-prepend=".'"<span class=mif-search></span>"'." placeholder=Text autofocus>'
+            +'<input type=submit hidden>'
+        +'</form></div>',
+        actions: [
+            {
+                caption: '<span class=mif-checkmark></span> Buscar',
+                cls: 'js-dialog-close info',
+                onclick: function(){
+                    document.search_titular.submit()
+                }
+            },
+            {
+                caption: '<span class=mif-cross></span>',
+                cls: 'js-dialog-close'
+            }
+        ]
+    });
+}
+
+function search_vehiculos(){
+    Metro.dialog.create({
+        title: '<p>',
+        content: '<div>'
+        +'<form  action=gest_vehicles.php method=GET >'
+            +'<input  type=text name=pagina id=pagina value=1 hidden>'
+            +'<input  id=search_a name=search type=text  data-role=input data-prepend=".'"<span class=mif-search></span>"'." placeholder=Text autofocus>'
+            +'<input type=submit hidden>'
+        +'</form></div>',
+        actions: [
+            {
+                caption: '<span class=mif-checkmark></span> Buscar',
+                cls: 'js-dialog-close info',
+                onclick: function(){
+                    document.search_vehiculos.submit()
+                }
+            },
+            {
+                caption: '<span class=mif-cross></span>',
+                cls: 'js-dialog-close'
+            }
+        ]
+    });
+}
+
+function search_adicionales(){
+    Metro.dialog.create({
+        title: '<p>',
+        content: '<div>'
+        +'<form  action=gest_adicionales.php method=GET >'
+            +'<input  type=text name=pagina id=pagina value=1 hidden>'
+            +'<input  id=search name=search type=text  data-role=input data-prepend=".'"<span class=mif-search></span>"'." placeholder=Text autofocus>'
+            +'<input type=submit hidden>'
+        +'</form></div>',
+        actions: [
+            {
+                caption: '<span class=mif-checkmark></span> Buscar',
+                cls: 'js-dialog-close info',
+                onclick: function(){
+                    document.search_adicionales.submit()
+                }
+            },
+            {
+                caption: '<span class=mif-cross></span>',
+                cls: 'js-dialog-close'
+            }
+        ]
+    });
+}
+
+</script>
+";
+?>
 <!-- Finaliza Menu -->
 <div  style="background-color: #dcdcdc; width:100%;">
 <div class="container">

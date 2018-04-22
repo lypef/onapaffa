@@ -60,9 +60,9 @@
 
     if (isset($_GET["search"]))
     {
-      $sql = "SELECT * FROM `titulares` WHERE nombre LIKE '%".$txt_buscar."%' ORDER BY nombre ASC LIMIT ".$inicio.",". "$TAMANO_PAGINA";
+      $sql = "SELECT t.id, t.nombre, t.domicilio, t.cp, t.telefono, t.fotografia, t.atendio, s.nombre FROM titulares t INNER JOIN sucursales s ON t.sucursal = s.id WHERE t.nombre LIKE '%".$txt_buscar."%' ORDER BY t.nombre ASC LIMIT ".$inicio.",". "$TAMANO_PAGINA";
     }else {
-      $sql = "SELECT * FROM `titulares` ORDER BY nombre ASC LIMIT ".$inicio.",". "$TAMANO_PAGINA";
+      $sql = "SELECT t.id, t.nombre, t.domicilio, t.cp, t.telefono, t.fotografia, t.atendio, s.nombre FROM titulares t INNER JOIN sucursales s ON t.sucursal = s.id ORDER BY t.nombre ASC LIMIT ".$inicio.",". "$TAMANO_PAGINA";
     }
     $result = mysqli_query($conn,$sql);
 
@@ -151,6 +151,7 @@
             <div class='dialog-content'>
                 DOMICILIO: ".$row[2].", CP: ".$row[3]."
                 <br>TELEFONO: ".$row[4]."
+                <br>SUCURSAL: ".$row[7]."
             </div>
             <div class='dialog-actions'>
                 <button class='button js-dialog-close info'><span class='mif-checkmark'></span></button>

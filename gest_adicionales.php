@@ -72,21 +72,28 @@
 
     if (isset($_GET["search"]))
     {
-      $sql = "SELECT a.id, v.foto, t.nombre, a.nombre, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), a.domicilio, a.cp, a.telefono, a.foto, t.fotografia from vehiculos v, titulares t, adicionales a where a.titular = t.id and a.vehiculo = v.id and t.nombre LIKE '%".$txt_buscar."%' or a.titular = t.id and a.vehiculo = v.id and a.nombre LIKE '%".$txt_buscar."%' or a.titular = t.id and a.vehiculo = v.id and v.modelo LIKE '%".$txt_buscar."%' or a.titular = t.id and a.vehiculo = v.id and v.marca LIKE '%".$txt_buscar."%' or a.titular = t.id and a.vehiculo = v.id and v.engomado LIKE '%".$txt_buscar."%'  ORDER BY v.id";
+      $sql = "SELECT a.id, v.foto, t.nombre, a.nombre, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), a.domicilio, a.cp, a.telefono, a.foto, t.fotografia, s.nombre from vehiculos v, titulares t, adicionales a, sucursales s  where a.titular = t.id and a.vehiculo = v.id and a.sucursal = s.id and t.nombre LIKE '%".$txt_buscar."%' or a.titular = t.id and a.vehiculo = v.id and a.sucursal = s.id and a.titular = t.id and a.vehiculo = v.id and a.nombre LIKE '%".$txt_buscar."%' or a.titular = t.id and a.vehiculo = v.id and a.sucursal = s.id and a.titular = t.id and a.vehiculo = v.id and v.modelo LIKE '%".$txt_buscar."%' or a.titular = t.id and a.vehiculo = v.id and a.sucursal = s.id and a.titular = t.id and a.vehiculo = v.id and v.marca LIKE '%".$txt_buscar."%' or a.titular = t.id and a.vehiculo = v.id and a.sucursal = s.id and a.titular = t.id and a.vehiculo = v.id and v.engomado LIKE '%".$txt_buscar."%' ORDER BY v.id";
     }
     elseif (isset($_GET["vehicle"]))
     {
         $vehicle = $_GET["vehicle"];
-        $sql = "SELECT a.id, v.foto, t.nombre, a.nombre, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), a.domicilio, a.cp, a.telefono, a.foto, t.fotografia from vehiculos v, titulares t, adicionales a where a.titular = t.id and a.vehiculo = v.id and v.id =  $vehicle ORDER BY v.id ";
+        $sql = "SELECT a.id, v.foto, t.nombre, a.nombre, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), a.domicilio, a.cp, a.telefono, a.foto, t.fotografia, a.sucursal from vehiculos v, titulares t, adicionales a where a.titular = t.id and a.vehiculo = v.id and v.id =  $vehicle ORDER BY v.id ";
     }
     else {
-      $sql = "SELECT a.id, v.foto, t.nombre, a.nombre, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), a.domicilio, a.cp, a.telefono, a.foto, t.fotografia from vehiculos v, titulares t, adicionales a  where a.titular = t.id and a.vehiculo = v.id ORDER BY v.id desc LIMIT $inicio, $TAMANO_PAGINA";
+      $sql = "SELECT a.id, v.foto, t.nombre, a.nombre, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), a.domicilio, a.cp, a.telefono, a.foto, t.fotografia, s.nombre from vehiculos v, titulares t, adicionales a, sucursales s  where a.titular = t.id and a.vehiculo = v.id and a.sucursal = s.id ORDER BY v.id desc LIMIT $inicio, $TAMANO_PAGINA";
     }
     $result = mysqli_query($conn,$sql);
 
     $sql_t = "SELECT * FROM titulares";
     $result_t = mysqli_query($conn,$sql_t);
 
+    $sucursales_sql = "SELECT * FROM sucursales";
+    $sucursales = mysqli_query($conn,$sucursales_sql);
+    $body_suc = "";
+    while($r = mysqli_fetch_array($sucursales))
+    {
+      $body_suc = $body_suc."<option value = $r[0] >$r[1]</option>";
+    }
 
     while($row = mysqli_fetch_array($result)){
     echo "
@@ -113,7 +120,11 @@
               Metro.dialog.create({
                   title: '".'<center><img class= "round100" src="'.$row[1].'"></center>'."',
                   content: '<div><center>EDITAR ADICIONAL</center><br>'
-                    +'<form  action=func/edit_adicional_action.php method=POST enctype=multipart/form-data name=".'"editform'.$row[0].'"'." >'
+                      +'<form  action=func/edit_adicional_action.php method=POST enctype=multipart/form-data name=".'"editform'.$row[0].'"'." >'
+                      +'<select  name=sucursal id=sucursal required>'
+                      +'<option value=>SELECCIONE SUCURSAL</option>'
+                      +'".$body_suc."'
+                      +'</select>'
                       +'<input value=".'"'.$row[0].'"'." type=hidden name=adicional id=adicional>'
                       +'<input value=".'"'.$row[3].'"'." id=nombre name=nombre type=text data-role=input data-prepend=Nombre: placeholder=".'"Nombre de adicional"'." required>'
                       +'<input value=".'"'.$row[6].'"'." id=domicilio name=domicilio type=text data-role=input data-prepend=Domicilio: placeholder=".'"Domicilio de adicional"'." >'
@@ -167,12 +178,13 @@
             <div class='dialog-title'>".'<center><img class= "round100" src="'.$row[1].'"></center>'."</div>
             <div class='dialog-content'>
                 ADICIONAL: ".$row[3]."
-                <br>TITULAR: ".$row[2]."
-                <br><br>DOMICILIO: ".$row[6]."
+                <br>SUCURSAL: ".$row[11]."
+                <br>DOMICILIO: ".$row[6]."
                 <br>CP: ".$row[7]."
                 <br>TELEFONO: ".$row[8]."
                 <br>VENCIMIENTO: ".$row[4]."
                 <br>ESTATUS: ".$row[5]."
+                <br><br>TITULAR: ".$row[2]."
             </div>
             <div class='dialog-actions'>
                 <button class='button js-dialog-close info'><span class='mif-checkmark'></span></button>

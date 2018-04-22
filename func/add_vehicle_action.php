@@ -1,7 +1,11 @@
 <?php
   error_reporting(0);
+  session_start();
+  $userid = $_SESSION['usuario'];
+
   require_once 'db.php';
 
+  $suc = $_POST['sucursal'];
   $titular = $_POST['titular'];
   $serie = $_POST['serie'];
   $tipo = $_POST['tipo'];
@@ -30,25 +34,25 @@
   {
     if (copy($ruta,$destino))
     {
-      mysql_query("insert into vehiculos (titular, serie, tipo, modelo, marca, cilindros, color, engomado, f_expedicion, f_vencimiento, estatus, foto)
-                values ('$titular', '$serie', '$tipo', '$modelo', '$marca', '$cilindros', '$color', '$engomado', '$f_expedicion', '$f_vencimiento', '$estatus', '$ruta_foto')");
+      mysql_query("insert into vehiculos (titular, serie, tipo, modelo, marca, cilindros, color, engomado, f_expedicion, f_vencimiento, estatus, foto, atendio, sucursal)
+                values ('$titular', '$serie', '$tipo', '$modelo', '$marca', '$cilindros', '$color', '$engomado', '$f_expedicion', '$f_vencimiento', '$estatus', '$ruta_foto', '$userid', '$suc')");
       if (mysql_affected_rows() > 0)
       {
         echo '<script>location.href = "../add_vehicle.php?success=true"</script>';
       }else {
-        echo '<script>location.href = "../add_vehicle.php?error=true&serie='.$serie.'&tipo='.$tipo.'&modelo='.$modelo.'&marca='.$marca.'&cilindros='.$cilindros.'&color='.$color.'&engomado='.$engomado.'&f_expedicion='.$f_expedicion.'&f_vencimiento='.$f_vencimiento.'&titular='.$titular.'"</script>';
+        echo '<script>location.href = "../add_vehicle.php?error=true&serie='.$serie.'&tipo='.$tipo.'&modelo='.$modelo.'&marca='.$marca.'&cilindros='.$cilindros.'&color='.$color.'&engomado='.$engomado.'&f_expedicion='.$f_expedicion.'&f_vencimiento='.$f_vencimiento.'&titular='.$titular.'&sucursal='.$suc.'"</script>';
       }
     }else {
-        echo '<script>location.href = "../add_vehicle.php?error_image=true&serie='.$serie.'&tipo='.$tipo.'&modelo='.$modelo.'&marca='.$marca.'&cilindros='.$cilindros.'&color='.$color.'&engomado='.$engomado.'&f_expedicion='.$f_expedicion.'&f_vencimiento='.$f_vencimiento.'&titular='.$titular.'"</script>';
+        echo '<script>location.href = "../add_vehicle.php?error_image=true&serie='.$serie.'&tipo='.$tipo.'&modelo='.$modelo.'&marca='.$marca.'&cilindros='.$cilindros.'&color='.$color.'&engomado='.$engomado.'&f_expedicion='.$f_expedicion.'&f_vencimiento='.$f_vencimiento.'&titular='.$titular.'&sucursal='.$suc.'"</script>';
     }
   }else {
-    mysql_query("insert into vehiculos (titular, serie, tipo, modelo, marca, cilindros, color, engomado, f_expedicion, f_vencimiento, estatus, foto)
-              values ('$titular', '$serie', '$tipo', '$modelo', '$marca', '$cilindros', '$color', '$engomado', '$f_expedicion', '$f_vencimiento', '$estatus', 'ninguna')");
+    mysql_query("insert into vehiculos (titular, serie, tipo, modelo, marca, cilindros, color, engomado, f_expedicion, f_vencimiento, estatus, foto, atendio, sucursal)
+              values ('$titular', '$serie', '$tipo', '$modelo', '$marca', '$cilindros', '$color', '$engomado', '$f_expedicion', '$f_vencimiento', '$estatus', 'ninguna'), '$userid', '$suc'");
     if (mysql_affected_rows() > 0)
     {
       echo '<script>location.href = "../add_vehicle.php?success=true"</script>';
     }else {
-      echo '<script>location.href = "../add_vehicle.php?error=true&serie='.$serie.'&tipo='.$tipo.'&modelo='.$modelo.'&marca='.$marca.'&cilindros='.$cilindros.'&color='.$color.'&engomado='.$engomado.'&f_expedicion='.$f_expedicion.'&f_vencimiento='.$f_vencimiento.'&titular='.$titular.'"</script>';
+      echo '<script>location.href = "../add_vehicle.php?error=true&serie='.$serie.'&tipo='.$tipo.'&modelo='.$modelo.'&marca='.$marca.'&cilindros='.$cilindros.'&color='.$color.'&engomado='.$engomado.'&f_expedicion='.$f_expedicion.'&f_vencimiento='.$f_vencimiento.'&titular='.$titular.'&sucursal='.$suc.'"</script>';
     }
   }
 ?>

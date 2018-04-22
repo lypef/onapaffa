@@ -26,7 +26,16 @@ else
     $consulta = mysqli_query($con, "SELECT * FROM users WHERE username = '$user' AND password = '$pass'");
     if (mysqli_num_rows($consulta) > 0)
     {
-            $_SESSION['usuario'] = $user;
+            $id_user = 0;
+            $nombre = "";
+            while($row = mysqli_fetch_array($consulta))
+            {
+              $id_user = $row[0];
+              $nombre = $row[3];
+            }
+
+            $_SESSION['usuario'] = $id_user;
+            $_SESSION['usuario_name'] = $nombre;
             echo '<script>location.href = "manager.php"</script>';
     }
     else

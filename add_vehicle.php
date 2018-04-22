@@ -2,14 +2,27 @@
   include 'func/header.php';
   require_once 'func/db.php';
   $conn = mysqli_connect($host,$user,$password,$db);
+
   $sql = "SELECT * FROM titulares";
   $result = mysqli_query($conn,$sql) ;
+
+  $sql_suc = "SELECT * FROM sucursales";
+  $result_suc = mysqli_query($conn,$sql_suc) ;
 ?>
 <br>
 <h2 id="inputs">Nuevo vehiculo</h2>
 <div class="example">
     <form  action="func/add_vehicle_action.php" method="POST" enctype="multipart/form-data">
-        <select  name="titular" id="titular" required>
+          <select  name="sucursal" id="sucursal" required>
+            <option value="">SELECCIONE SUCURSAL</option>
+            <?php
+            while($row = mysqli_fetch_array($result_suc))
+            {
+              echo '<option value="'.$row[0].'">'.$row[1].'</option>';
+            }
+            ?>
+          </select>
+          <select  name="titular" id="titular" required>
           <option value="">SELECCIONE UN TITULAR</option>
           <?php
           while($row = mysqli_fetch_array($result))
@@ -17,7 +30,6 @@
             echo '<option value="'.$row[0].'">'.$row[1].'</option>';
           }
           ?>
-
         </select>
         <input id="serie" name="serie" type="text" data-role="input" data-prepend="Serie:" placeholder="Serie del vehiculo" required>
         <input id="tipo" name="tipo" type="text" data-role="input" data-prepend="Tipo:" placeholder="Tipo de vehiculo" required>
@@ -71,7 +83,8 @@
         document.getElementById("f_expedicion").value = getUrlVars()["f_expedicion"].replace("%", " ");
         document.getElementById("f_vencimiento").value = getUrlVars()["f_vencimiento"].replace("%", " ");
         document.getElementById("titular").value = getUrlVars()["titular"].replace("%", " ");
-
+        document.getElementById("sucursal").value = getUrlVars()["sucursal"].replace("%", " ");
+        
       function getUrlVars() {
         var vars = {};
         var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {

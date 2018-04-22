@@ -1,6 +1,8 @@
 <?php
   error_reporting(0);
   require_once 'db.php';
+  session_start();
+  $userid = $_SESSION['usuario'];
 
   $vehiculo = $_POST['vehiculo'];
   $nombre = $_POST['nombre'];
@@ -8,7 +10,7 @@
   $cp = $_POST['cp'];
   $telefono = $_POST['telefono'];
   $titular = $_POST['titular'];
-
+  $suc = $_POST['sucursal'];
 
   $foto=$_FILES["foto"]["name"];
   $ruta=$_FILES["foto"]["tmp_name"];
@@ -27,8 +29,8 @@
       {
         if (copy($ruta,$destino))
         {
-          mysql_query("insert into adicionales (vehiculo,nombre,domicilio, cp	, telefono, foto, titular)
-                    values ('$vehiculo', '$nombre', '$domicilio', '$cp', '$telefono', '$ruta_foto', '$titular')");
+          mysql_query("insert into adicionales (vehiculo,nombre,domicilio, cp	, telefono, foto, titular, atendio, sucursal)
+                    values ('$vehiculo', '$nombre', '$domicilio', '$cp', '$telefono', '$ruta_foto', '$titular', '$userid', '$suc')");
           if (mysql_affected_rows() > 0)
           {
             echo '<script>location.href = "../gest_vehicles.php?pagina=1&success=true"</script>';
@@ -39,8 +41,8 @@
           echo '<script>location.href = "../gest_vehicles.php?pagina=1&error_image=true"</script>';
         }
       }else {
-        mysql_query("insert into adicionales (vehiculo,nombre,domicilio, cp	, telefono, foto, titular)
-                  values ('$vehiculo', '$nombre', '$domicilio', '$cp', '$telefono', 'Ninguna', '$titular')");
+        mysql_query("insert into adicionales (vehiculo,nombre,domicilio, cp	, telefono, foto, titular, atendio, sucursal)
+                  values ('$vehiculo', '$nombre', '$domicilio', '$cp', '$telefono', 'Ninguna', '$titular', '$userid', '$suc')");
         if (mysql_affected_rows() > 0)
         {
           echo '<script>location.href = "../gest_vehicles.php?pagina=1&success=true"</script>';

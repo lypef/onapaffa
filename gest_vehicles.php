@@ -74,21 +74,29 @@
 
     if (isset($_GET["search"]))
     {
-      $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto, t.id FROM vehiculos v INNER JOIN titulares t ON v.titular = t.id WHERE t.nombre LIKE '%".$txt_buscar."%' or v.serie LIKE '%".$txt_buscar."%' or v.modelo LIKE '%".$txt_buscar."%' or v.marca LIKE '%".$txt_buscar."%' or v.engomado LIKE '%".$txt_buscar."%'  ORDER BY v.id ";
+      $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto, t.id, s.nombre FROM vehiculos v, titulares t, sucursales s where v.titular = t.id and v.sucursal = s.id and t.nombre LIKE '%".$txt_buscar."%' or v.titular = t.id and v.sucursal = s.id and v.serie LIKE '%".$txt_buscar."%' or v.titular = t.id and v.sucursal = s.id and v.modelo LIKE '%".$txt_buscar."%' or v.titular = t.id and v.sucursal = s.id and v.marca LIKE '%".$txt_buscar."%' or v.titular = t.id and v.sucursal = s.id and v.engomado LIKE '%".$txt_buscar."%' or v.titular = t.id and v.sucursal = s.id and t.nombre LIKE '%".$txt_buscar."%' ORDER BY v.id";
     }
     elseif (isset($_GET["titular"]))
     {
         $titular = $_GET["titular"];
-        $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto, t.id FROM vehiculos v INNER JOIN titulares t ON v.titular = t.id where t.id =  $titular ";
+        $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto, t.id, s.nombre FROM vehiculos v, titulares t, sucursales s where v.titular = t.id and v.sucursal = s.id and t.id =  $titular ";
     }
     else {
-      $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto, t.id FROM vehiculos v INNER JOIN titulares t ON v.titular = t.id ORDER BY v.id desc LIMIT $inicio, $TAMANO_PAGINA";
+      $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto, t.id, s.nombre FROM vehiculos v, titulares t, sucursales s where v.titular = t.id and v.sucursal = s.id ORDER BY v.id desc LIMIT $inicio, $TAMANO_PAGINA";
     }
     $result = mysqli_query($conn,$sql);
 
     $sql_t = "SELECT * FROM titulares";
     $result_t = mysqli_query($conn,$sql_t);
 
+    $sucursales_sql = "SELECT * FROM sucursales";
+    $sucursales = mysqli_query($conn,$sucursales_sql);
+
+    $body_suc = "";
+    while($r = mysqli_fetch_array($sucursales))
+    {
+      $body_suc = $body_suc."<option value = $r[0] >$r[1]</option>";
+    }
 
     while($row = mysqli_fetch_array($result)){
     echo "
@@ -104,7 +112,7 @@
           <button class="button" onclick="Metro.dialog.open('."'#".$row[0]."'".')" ><span class="mif-eye"></span> Detalles</button>
           <button class="split dropdown-toggle"></button>
           <ul class="d-menu" data-role="dropdown">
-              <li><a href="#"><span class="mif-loop2"></span> Renovar</a></li>
+              <li><a onclick="'."renovar".$row[0]."()".'"><span class="mif-loop2"></span> Renovar</a></li>
               <li class="divider"></li>
               <li><a onclick="'."adicional".$row[0]."()".'"><span class="mif-plus"></span> Nuevo adicional</a></li>
               <li><a href="gest_adicionales.php?pagina=1&vehicle='.$row[0].'"><span class="mif-eye"></span> Ver adicionales</a></li>
@@ -118,11 +126,43 @@
         ."</td>
 
         <script>
-          function adicional".$row[0]."(){
+        function renovar".$row[0]."(){
+            Metro.dialog.create({
+                title: '".'<center><img class= "round100" src="'.$row[12].'"></center>'."',
+                content: '<div><center>RENOVAR ENGOMADO</center><br>'
+                  +'<form  action=func/vehicle_update_engomado.php method=POST enctype=multipart/form-data name=".'"editform'.$row[0].'"'." >'
+                      +'<input value=".'"'.$row[0].'"'." type=hidden name=id id=id>'
+                      +'<label>Fecha de inicio</label>'
+                      +'<input id=f_expedicion name=f_expedicion data-role=calendarpicker  placeholder=Fecha expedicion required value=".'"'.$row[9].'"'.">'
+                      +'<br><label>Fecha de termino</label>'
+                      +'<input id=f_vencimiento name=f_vencimiento data-role=calendarpicker  placeholder=Fecha de vencimiento required value=".'"'.$row[10].'"'.">'
+                      +'<input type=submit hidden>'
+                  +'</form></div>',
+                actions: [
+                    {
+                        caption: '<span class=mif-floppy-disk></span> Renovar',
+                        cls: 'js-dialog-close success',
+                        onclick: function(){
+                            document.editform".$row[0].".submit()
+                        }
+                    },
+                    {
+                        caption: '<span class=mif-checkmark></span> Cancelar',
+                        cls: 'js-dialog-close'
+                    }
+                ]
+            });
+        }
+
+        function adicional".$row[0]."(){
               Metro.dialog.create({
                   title: '".'<center><img class= "round100" src="'.$row[12].'"></center>'."',
                   content: '<div><center>AGREGAR ADICIONAL</center><br>'
                     +'<form  action=func/add_adicional_vehicle_action.php method=POST enctype=multipart/form-data name=".'"adicional'.$row[0].'"'." >'
+                        +'<select  name=sucursal id=sucursal required>'
+                        +'<option value=>SELECCIONE SUCURSAL</option>'
+                        +'".$body_suc."'
+                        +'</select>'
                         +'<input value=".'"'.$row[0].'"'." type=hidden name=vehiculo id=vehiculo>'
                         +'<input value=".'"'.$row[13].'"'." type=hidden name=titular id=titular>'
                         +'<input id=nombre name=nombre type=text data-role=input data-prepend=Nombre: placeholder=".'"Nombre de adicional"'." required>'
@@ -219,6 +259,7 @@
                 <br>FECHA DE INICIO: ".$row[9]."
                 <br>FECHA DE VENCIMIENTO: ".$row[10]."
                 <br>ESTATUS: ".$row[11]."
+                <br>SUCURSAL: ".$row[14]."
             </div>
             <div class='dialog-actions'>
                 <button class='button js-dialog-close info'><span class='mif-checkmark'></span></button>
@@ -289,12 +330,27 @@
 
       if (getUrlVars()["error_image"])
       {
-          Metro.notify.create("Adicionalo NO agregado", "<span class='mif-cross'></span> No agregado", {cls: "alert"});
+          Metro.notify.create("Adicional NO agregado", "<span class='mif-cross'></span> No agregado", {cls: "alert"});
+      }
+
+      if (getUrlVars()["error"])
+      {
+          Metro.notify.create("Adicional NO agregado", "<span class='mif-cross'></span> No agregado", {cls: "alert"});
       }
 
       if (getUrlVars()["adicionalno"])
       {
           Metro.notify.create("El numero de adicionales permitidos se ah excedido", "<span class='mif-cross'></span> Excedido", {cls: "warning"});
+      }
+
+      if (getUrlVars()["noengomado"])
+      {
+          Metro.notify.create("No se actualizo el periodo", "<span class='mif-cross'></span> Excedido", {cls: "alert"});
+      }
+
+      if (getUrlVars()["engomado"])
+      {
+          Metro.notify.create("Periodo actualizado", "<span class='mif-checkmark'></span> Excedido", {cls: "success"});
       }
 
       function getUrlVars() {
