@@ -66,6 +66,14 @@
     }
     $result = mysqli_query($conn,$sql);
 
+    $sucursales_sql = "SELECT * FROM sucursales";
+    $sucursales = mysqli_query($conn,$sucursales_sql);
+    $body_suc = "";
+    while($r = mysqli_fetch_array($sucursales))
+    {
+      $body_suc = $body_suc."<option value = $r[0] >$r[1]</option>";
+    }
+
     while($row = mysqli_fetch_array($result)){
     echo "
     <tr>
@@ -93,9 +101,13 @@
         function edit".$row[0]."(){
               Metro.dialog.create({
                   title: '".'<center><img class= "round100" src="'.$row[5].'"></center>'."',
-                  content: '<div><center>EDITAR TITULAR: ".$row[1]."</center><br>'
+                  content: '<div><center>EDITAR TITULAR: ".$row[1]."</center><br>SUCURSAL ACTUAL: ".$row[7]."'
                     +'<form  action=func/edit_titular_action.php method=POST enctype=multipart/form-data name=".'"editform'.$row[0].'"'." >'
                         +'<input value=".'"'.$row[0].'"'." type=hidden name=id id=id>'
+                        +'<select  name=sucursal id=sucursal>'
+                        +'<option value=>SELECCIONE SUCURSAL SI DESEA CAMBIAR</option>'
+                        +'".$body_suc."'
+                        +'</select>'
                         +'<input value=".'"'.$row[1].'"'." id=_nombre name=_nombre type=text data-role=input data-prepend=Nombre placeholder=Escriba nombre completo required>'
                         +'<input value=".'"'.$row[2].'"'." id=domicilio name=domicilio type=text data-role=input data-prepend=Domicilio placeholder=Domicilio del titular >'
                         +'<input value=".'"'.$row[3].'"'." id=cp name=cp type=text data-role=input data-prepend=Codigo posta placeholder=Codigo postal >'

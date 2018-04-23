@@ -7,6 +7,7 @@
   $domicilio = $_POST["domicilio"];
   $cp = $_POST["cp"];
   $telefono = $_POST["telefono"];
+  $suc = $_POST['sucursal'];
 
   $foto=$_FILES["foto"]["name"];
   $ruta=$_FILES["foto"]["tmp_name"];
@@ -18,7 +19,13 @@
   {
     if (copy($ruta,$destino))
     {
-      mysql_query("update adicionales set nombre = '$name', domicilio = '$domicilio', cp = '$cp', telefono = '$telefono', foto = '$ruta_foto' where id = '$id' ");
+      if ($suc > 0)
+      {
+        mysql_query("update adicionales set nombre = '$name', domicilio = '$domicilio', cp = '$cp', telefono = '$telefono', foto = '$ruta_foto', sucursal = '$suc' where id = '$id' ");
+      }else {
+          mysql_query("update adicionales set nombre = '$name', domicilio = '$domicilio', cp = '$cp', telefono = '$telefono', foto = '$ruta_foto' where id = '$id' ");
+      }
+
       if (mysql_affected_rows() > 0)
       {
         unlink('../'+$_foto);
@@ -30,7 +37,13 @@
       echo '<script>location.href = "../gest_adicionales.php?pagina=1?&noupdate=true"</script>';
     }
   }else {
-    mysql_query("update adicionales set nombre = '$name', domicilio = '$domicilio', cp = '$cp', telefono = '$telefono' where id = '$id' ");
+    if ($suc > 0)
+    {
+        mysql_query("update adicionales set nombre = '$name', domicilio = '$domicilio', cp = '$cp', telefono = '$telefono', sucursal = '$suc' where id = '$id' ");
+    }else {
+        mysql_query("update adicionales set nombre = '$name', domicilio = '$domicilio', cp = '$cp', telefono = '$telefono' where id = '$id' ");
+    }
+
     if (mysql_affected_rows() > 0)
     {
       echo '<script>location.href = "../gest_adicionales.php?pagina=1?&update=true"</script>';

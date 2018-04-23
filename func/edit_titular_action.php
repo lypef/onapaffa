@@ -7,7 +7,9 @@
   $domicilio = $_POST["domicilio"];
   $cp = $_POST["cp"];
   $telefono = $_POST["telefono"];
+  $suc = $_POST['sucursal'];
   $_foto = $_POST["_foto"];
+
 
   $foto=$_FILES["foto"]["name"];
   $ruta=$_FILES["foto"]["tmp_name"];
@@ -19,7 +21,13 @@
   {
     if (copy($ruta,$destino))
     {
-      mysql_query("update titulares set nombre = '$name', domicilio = '$domicilio', cp = '$cp', telefono = '$telefono', fotografia = '$ruta_foto' where id = '$id' ");
+
+      if ($suc > 0)
+      {
+        mysql_query("update titulares set nombre = '$name', domicilio = '$domicilio', cp = '$cp', telefono = '$telefono', fotografia = '$ruta_foto', sucursal = '$suc' where id = '$id' ");
+      }else {
+        mysql_query("update titulares set nombre = '$name', domicilio = '$domicilio', cp = '$cp', telefono = '$telefono', fotografia = '$ruta_foto' where id = '$id' ");
+      }
       if (mysql_affected_rows() > 0)
       {
         unlink('../'+$_foto);
@@ -31,7 +39,12 @@
       echo '<script>location.href = "../gest_titulares.php?pagina=1?&noupdate=true"</script>';
     }
   }else {
-    mysql_query("update titulares set nombre = '$name', domicilio = '$domicilio', cp = '$cp', telefono = '$telefono' where id = '$id' ");
+    if ($suc > 0)
+    {
+      mysql_query("update titulares set nombre = '$name', domicilio = '$domicilio', cp = '$cp', telefono = '$telefono', sucursal = '$suc' where id = '$id' ");
+    }else {
+      mysql_query("update titulares set nombre = '$name', domicilio = '$domicilio', cp = '$cp', telefono = '$telefono' where id = '$id' ");
+    }
     if (mysql_affected_rows() > 0)
     {
       echo '<script>location.href = "../gest_titulares.php?pagina=1?&update=true"</script>';

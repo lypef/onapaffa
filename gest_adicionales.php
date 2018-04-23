@@ -77,7 +77,7 @@
     elseif (isset($_GET["vehicle"]))
     {
         $vehicle = $_GET["vehicle"];
-        $sql = "SELECT a.id, v.foto, t.nombre, a.nombre, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), a.domicilio, a.cp, a.telefono, a.foto, t.fotografia, a.sucursal from vehiculos v, titulares t, adicionales a where a.titular = t.id and a.vehiculo = v.id and v.id =  $vehicle ORDER BY v.id ";
+        $sql = "SELECT a.id, v.foto, t.nombre, a.nombre, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), a.domicilio, a.cp, a.telefono, a.foto, t.fotografia, s.nombre from vehiculos v, titulares t, adicionales a, sucursales s  where a.titular = t.id and a.vehiculo = v.id and a.sucursal = s.id and v.id =  $vehicle  ORDER BY v.id ";
     }
     else {
       $sql = "SELECT a.id, v.foto, t.nombre, a.nombre, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), a.domicilio, a.cp, a.telefono, a.foto, t.fotografia, s.nombre from vehiculos v, titulares t, adicionales a, sucursales s  where a.titular = t.id and a.vehiculo = v.id and a.sucursal = s.id ORDER BY v.id desc LIMIT $inicio, $TAMANO_PAGINA";
@@ -119,10 +119,10 @@
           function edit".$row[0]."(){
               Metro.dialog.create({
                   title: '".'<center><img class= "round100" src="'.$row[1].'"></center>'."',
-                  content: '<div><center>EDITAR ADICIONAL</center><br>'
+                  content: '<div><center>EDITAR ADICIONAL</center><br><br>SUCURSAL ACTUAL: ".$row[11]."'
                       +'<form  action=func/edit_adicional_action.php method=POST enctype=multipart/form-data name=".'"editform'.$row[0].'"'." >'
                       +'<select  name=sucursal id=sucursal required>'
-                      +'<option value=>SELECCIONE SUCURSAL</option>'
+                      +'<option value=>SELECCIONE SUCURSAL SI DESEA CAMBIAR</option>'
                       +'".$body_suc."'
                       +'</select>'
                       +'<input value=".'"'.$row[0].'"'." type=hidden name=adicional id=adicional>'

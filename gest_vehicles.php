@@ -191,9 +191,13 @@
           function edit".$row[0]."(){
               Metro.dialog.create({
                   title: '".'<center><img class= "round100" src="'.$row[12].'"></center>'."',
-                  content: '<div><center>EDITAR VEHICULO</center><br>'
+                  content: '<div><center>EDITAR VEHICULO</center><br><br>SUCURSAL ACTUAL: ".$row[14]."'
                     +'<form  action=func/edit_vehicle_action.php method=POST enctype=multipart/form-data name=".'"editform'.$row[0].'"'." >'
                         +'<input value=".'"'.$row[0].'"'." type=hidden name=id id=id>'
+                        +'<select  name=sucursal id=sucursal>'
+                        +'<option value=>SELECCIONE SUCURSAL SI DESEA CAMBIAR</option>'
+                        +'".$body_suc."'
+                        +'</select>'
                         +'<input value=".'"'.$row[2].'"'." id=serie name=serie type=text data-role=input data-prepend=Serie: placeholder=".'"Serie del vehiculo"'." required>'
                         +'<input value=".'"'.$row[3].'"'." id=tipo name=tipo type=text data-role=input data-prepend=Tipo: placeholder=".'"Tipo de vehiculo"'." required>'
                         +'<input value=".'"'.$row[4].'"'." id=modelo name=modelo type=text data-role=input data-prepend=Modelo: placeholder=".'"Modelo del vehiculo"'." required>'
