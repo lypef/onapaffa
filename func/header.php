@@ -162,7 +162,7 @@
         <div class="group">
 
              <div data-role="buttonsGroup" data-cls-active="active">
-                 <button class="ribbon-button">
+                 <button onclick="update_profile()" class="ribbon-button">
                      <span class="icon">
                          <span class="mif-file-upload"></span>
                      </span>
@@ -193,6 +193,33 @@
 echo
 "
 <script>
+function update_profile(){
+    Metro.dialog.create({
+        title: '<p>',
+        content: '<div>'
+        +'<form  action=func/edit_profile_action.php method=POST name=update_profile>'
+            +'<input  type=text name=id id=id value=".'"'.$_SESSION['usuario'].'"'." hidden>'
+            +'<input  value=".'"'.$_SESSION['usuario_name'].'"'." id=name name=name type=text  data-role=input data-prepend=".'Nombre'." placeholder=Text >'
+            +'<input  id=password name=password type=password  data-role=input data-prepend=".'Nueva contraseña'." placeholder=****** >'
+            +'<input  id=password_confirm name=password_confirm type=password  data-role=input data-prepend=".'Repita contraseña'." placeholder=****** >'
+            +'<input type=submit hidden>'
+        +'</form></div>',
+        actions: [
+            {
+                caption: '<span class=mif-floppy-disk></span> Guardar',
+                cls: 'js-dialog-close info',
+                onclick: function(){
+                    document.update_profile.submit()
+                }
+            },
+            {
+                caption: '<span class=mif-cross></span>',
+                cls: 'js-dialog-close'
+            }
+        ]
+    });
+}
+
 function search_titular(){
     Metro.dialog.create({
         title: '<p>',

@@ -51,16 +51,24 @@
   <script>
         //location.href = "href/welcome.php"
 
-        var error = getUrlVars()["error"];
-        if (error)
+        if (getUrlVars()["error"])
         {
             Metro.notify.create("Verifique sus credenciales", "Error", {cls: "alert"});
         }
 
-        var bye = getUrlVars()["bye"];
-        if (bye)
+        if (getUrlVars()["bye"])
         {
             Metro.notify.create("_:D", "Que tenga un Buen dia.", {cls: "info"});
+        }
+
+        if (getUrlVars()["update_profile"])
+        {
+            Metro.notify.create("Informacion actualizada", "<span class='mif-checkmark'></span> Perfil actualizado.", {cls: "success"});
+        }
+
+        if (getUrlVars()["noupdate_profile"])
+        {
+            Metro.notify.create("No fue posible realizar alguna actualizacion", "<span class='mif-cross'></span> No se actualizo", {cls: "alert"});
         }
 
         function getUrlVars() {
