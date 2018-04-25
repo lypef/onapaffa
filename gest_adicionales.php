@@ -99,8 +99,8 @@
     echo "
     <tr>
         <td>".'<img class= "round100" src="'.$row[1].'">'."</td>
-        <td>".'<img class= "round100" src="'.$row[10].'">'." ".$row[2]."</td>
-        <td>".'<img class= "round100" src="'.$row[9].'">'." ".$row[3]."</td>
+        <td>".'<img class= "round100" src="'.$row[10].'">'."<br>".$row[2]."</td>
+        <td>".'<img class= "round100" src="'.$row[9].'">'." <br>".$row[3]."</td>
         <td>".$row[5]."</td>
         <td>".
         '<div class="split-button">

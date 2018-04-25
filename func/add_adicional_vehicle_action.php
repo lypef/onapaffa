@@ -23,6 +23,8 @@
   $result = mysqli_query($conn,$sql);
   $NumAdcionales = mysqli_num_rows($result);
 
+  $log = 'se agrego adicional: '.$nombre.'. al vehiculo no: '.$vehiculo. '. titular: '.ReturnNameTitular($titular);
+
   if ($NumAdcionales < 5)
   {
       if ($foto)
@@ -33,6 +35,7 @@
                     values ('$vehiculo', '$nombre', '$domicilio', '$cp', '$telefono', '$ruta_foto', '$titular', '$userid', '$suc')");
           if (mysql_affected_rows() > 0)
           {
+            AddLog($log);
             echo '<script>location.href = "../gest_vehicles.php?pagina=1&success=true"</script>';
           }else {
             echo '<script>location.href = "../gest_vehicles.php?pagina=1&error=true"</script>';
@@ -45,6 +48,7 @@
                   values ('$vehiculo', '$nombre', '$domicilio', '$cp', '$telefono', 'Ninguna', '$titular', '$userid', '$suc')");
         if (mysql_affected_rows() > 0)
         {
+          AddLog($log);
           echo '<script>location.href = "../gest_vehicles.php?pagina=1&success=true"</script>';
         }else {
           echo '<script>location.href = "../gest_vehicles.php?pagina=1&error=true"</script>';

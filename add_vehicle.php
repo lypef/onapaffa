@@ -31,7 +31,7 @@
           }
           ?>
         </select>
-        <input id="serie" name="serie" type="text" data-role="input" data-prepend="Serie:" placeholder="Serie del vehiculo" required>
+        <input id="serie" name="serie" type="text" data-role="input" data-prepend="Serie:" placeholder="Serie del vehiculo" maxlength="17" required>
         <input id="tipo" name="tipo" type="text" data-role="input" data-prepend="Tipo:" placeholder="Tipo de vehiculo" required>
         <input id="modelo" name="modelo" type="text" data-role="input" data-prepend="Modelo:" placeholder="Modelo del vehiculo" required>
         <input id="marca" name="marca" type="text" data-role="input" data-prepend="Marca:" placeholder="Marca del vehiculo" required>
@@ -73,6 +73,7 @@
           Metro.notify.create("Error al cargar imagen", "<span class='mif-cross'></span>", {cls: "alert"});
       }
 
+        document.getElementById("titular").value = getUrlVars()["titular"].replace("%", " ");
         document.getElementById("serie").value = getUrlVars()["serie"].replace("%", " ");
         document.getElementById("tipo").value = getUrlVars()["tipo"].replace("%", " ");
         document.getElementById("modelo").value = getUrlVars()["modelo"].replace("%", " ");
@@ -82,9 +83,8 @@
         document.getElementById("engomado").value = getUrlVars()["engomado"].replace("%", " ");
         document.getElementById("f_expedicion").value = getUrlVars()["f_expedicion"].replace("%", " ");
         document.getElementById("f_vencimiento").value = getUrlVars()["f_vencimiento"].replace("%", " ");
-        document.getElementById("titular").value = getUrlVars()["titular"].replace("%", " ");
         document.getElementById("sucursal").value = getUrlVars()["sucursal"].replace("%", " ");
-        
+
       function getUrlVars() {
         var vars = {};
         var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {

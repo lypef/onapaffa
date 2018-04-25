@@ -1,8 +1,8 @@
 <?php
   error_reporting(0);
+
   session_start();
   $userid = $_SESSION['usuario'];
-
   require_once 'db.php';
   $name = $_POST['_nombre'];
   $domicilio = $_POST["domicilio"];
@@ -15,12 +15,14 @@
   $nameimg = date("YmdHis");
   $destino="../fotografias/".$nameimg.".jpg";
   $ruta_foto="fotografias/".$nameimg.".jpg";
+
   if (copy($ruta,$destino))
   {
     mysql_query("insert into titulares (nombre,domicilio,cp, telefono, fotografia, atendio, sucursal)
               values ('$name','$domicilio','$cp', '$telefono', '$ruta_foto', '$userid', '$suc')");
     if (mysql_affected_rows() > 0)
     {
+      AddLog('alta titular: '.$name);
       echo '<script>location.href = "../add_titular.php?success=true"</script>';
     }else {
       echo '<script>location.href = "../add_titular.php?error=true&nombre='.$name.'&domicilio='.$domicilio.'&cp='.$cp.'&telefono='.$telefono.'&sucursal='.$suc.'"</script>';

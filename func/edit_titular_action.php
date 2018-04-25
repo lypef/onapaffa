@@ -17,6 +17,8 @@
   $destino="../fotografias/".$nameimg.".jpg";
   $ruta_foto="fotografias/".$nameimg.".jpg";
 
+  $log = 'se actualizo informacion de titular: '.ReturnNameTitular($id). ' numero de usuario: '.$id;
+
   if ($foto)
   {
     if (copy($ruta,$destino))
@@ -31,6 +33,7 @@
       if (mysql_affected_rows() > 0)
       {
         unlink('../'+$_foto);
+        AddLog($log);
         echo '<script>location.href = "../gest_titulares.php?pagina=1?&update=true"</script>';
       }else {
         echo '<script>location.href = "../gest_titulares.php?pagina=1?&noupdate=true"</script>';
@@ -47,6 +50,7 @@
     }
     if (mysql_affected_rows() > 0)
     {
+      AddLog($log);
       echo '<script>location.href = "../gest_titulares.php?pagina=1?&update=true"</script>';
     }else {
       echo '<script>location.href = "../gest_titulares.php?pagina=1?&noupdate=true"</script>';

@@ -7,6 +7,7 @@
   $password = $_POST["password"];
   $password_confirm = $_POST["password_confirm"];
   $sql = "";
+  $log = 'Usuario actualizo su informacion';
 
   if (!empty($password))
   {
@@ -22,12 +23,15 @@
   }
 
   mysql_query($sql);
-  session_start();
-  session_destroy();
   if (mysql_affected_rows() > 0)
   {
+    AddLog($log);
+    session_start();
+    session_destroy();
     echo '<script> location.href = "../index.php?update_profile=true";</script>';
   }else {
+    session_start();
+    session_destroy();
     echo '<script> location.href = "../index.php?noupdate_profile=true";</script>';
   }
 ?>

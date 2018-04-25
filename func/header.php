@@ -83,7 +83,7 @@
 
         <!-- Inicia modulo vehiculos-->
         <div class="group">
-            <a href="add_vehicle.php">
+            <a href="select_titular_addvehicle.php?pagina=1">
             <button class="ribbon-button">
                     <span class="icon">
                         <span class="mif-plus"></span>
@@ -168,18 +168,24 @@
                      </span>
                      <span class="caption">Actualizar</span>
                  </button>
+                 <a href="my_highs.php?pagina=1">
                  <button class="ribbon-button">
                      <span class="icon">
                          <span class="mif-chart-pie"></span>
                      </span>
                      <span class="caption">Mis altas</span>
                  </button>
+                </a>
+                
+                 <a href="my_logs.php?pagina=1">
                  <button class="ribbon-button">
                      <span class="icon">
                          <span class="mif-file-text"></span>
                      </span>
                      <span class="caption">Mis registros</span>
                  </button>
+                 </a>
+
              </div>
 
              <span class="title">Perfil</span>
@@ -200,8 +206,8 @@ function update_profile(){
         +'<form  action=func/edit_profile_action.php method=POST name=update_profile>'
             +'<input  type=text name=id id=id value=".'"'.$_SESSION['usuario'].'"'." hidden>'
             +'<input  value=".'"'.$_SESSION['usuario_name'].'"'." id=name name=name type=text  data-role=input data-prepend=".'Nombre'." placeholder=Text >'
-            +'<input  id=password name=password type=password  data-role=input data-prepend=".'Nueva contraseña'." placeholder=****** >'
-            +'<input  id=password_confirm name=password_confirm type=password  data-role=input data-prepend=".'Repita contraseña'." placeholder=****** >'
+            +'<input  id=password name=password type=password  data-role=input data-prepend=".'"Nueva contraseña"'." placeholder=****** >'
+            +'<input  id=password_confirm name=password_confirm type=password  data-role=input data-prepend=".'"Repita contraseña"'." placeholder=****** >'
             +'<input type=submit hidden>'
         +'</form></div>',
         actions: [
