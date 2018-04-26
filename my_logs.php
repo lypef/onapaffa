@@ -54,7 +54,7 @@
           <button class="button" onclick="Metro.dialog.open('."'#".$row[0]."'".')" ><span class="mif-eye"></span> Detalles</button>
           <button class="split dropdown-toggle"></button>
           <ul class="d-menu" data-role="dropdown">
-              <li><a onclick="'."delete".$row[0]."()".'"><span class="mif-bin"></span> Eliminar</a></li>
+              <li><a '.(($_SESSION['delete_logs'] == 0)?' hidden':"").' onclick="'."delete".$row[0]."()".'"><span class="mif-bin"></span> Eliminar</a></li>
           </ul>
       </div>
 

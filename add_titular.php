@@ -3,7 +3,11 @@
   require_once 'func/db.php';
   $conn = mysqli_connect($host,$user,$password,$db);
   $sql = "SELECT * FROM sucursales";
-  $result = mysqli_query($conn,$sql) ;
+  $result = mysqli_query($conn,$sql);
+  if ($_SESSION['add_titular'] == 0)
+  {
+      echo '<script>location.href = "manager.php?nopermitido=true"</script>';
+  }
 ?>
 
 <br>

@@ -1,6 +1,11 @@
 <?php
+session_start();
+if ($_SESSION['add_titular'] == 0)
+{
+    echo '<script>location.href = "../manager.php?nopermitido=true"</script>';
+}else
+{
   error_reporting(0);
-
   session_start();
   $userid = $_SESSION['usuario'];
   require_once 'db.php';
@@ -30,4 +35,5 @@
   }else {
     echo '<script>location.href = "../add_titular.php?error_image=true&nombre='.$name.'&domicilio='.$domicilio.'&cp='.$cp.'&telefono='.$telefono.'&sucursal='.$suc.'"</script>';
   }
+}
 ?>

@@ -1,4 +1,10 @@
 <?php
+session_start();
+if ($_SESSION['edit_vehicle'] == 0)
+{
+    echo '<script>location.href = "../manager.php?nopermitido=true"</script>';
+}else
+{
   error_reporting(0);
   require_once 'db.php';
 
@@ -13,4 +19,5 @@
   }else {
     echo '<script>location.href = "../gest_vehicles.php?pagina=1?&nodelete=true"</script>';
   }
+}
 ?>

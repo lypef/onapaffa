@@ -1,5 +1,11 @@
 <? include 'func/header.php' ?>
 <? require_once 'func/db.php' ?>
+<?
+  if ($_SESSION['add_vehicle'] == 0)
+  {
+      echo '<script>location.href = "manager.php?nopermitido=true"</script>';
+  }
+?>
 <br>
 <div style="background-color: white;">
 <br>

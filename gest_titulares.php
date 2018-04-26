@@ -88,8 +88,8 @@
           <ul class="d-menu" data-role="dropdown">
               <li><a href="gest_vehicles.php?pagina=1&titular='.$row[0].'"><span class="mif-automobile"></span> Ver vehiculos</a></li>
               <li class="divider"></li>
-              <li><a onclick="'."edit".$row[0]."()".'"><span class="mif-pencil"></span> Editar</a></li>
-              <li><a onclick="'."delete".$row[0]."()".'"><span class="mif-bin"></span> Eliminar</a></li>
+              <li><a '.(($_SESSION['edit_titular'] == 0)?' hidden':"").' onclick="'."edit".$row[0]."()".'"><span class="mif-pencil"></span> Editar</a></li>
+              <li><a '.(($_SESSION['delete_titular'] == 0)?' hidden':"").' onclick="'."delete".$row[0]."()".'"><span class="mif-bin"></span> Eliminar</a></li>
           </ul>
       </div>
 

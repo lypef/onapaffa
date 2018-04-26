@@ -1,4 +1,10 @@
 <?php
+session_start();
+if ($_SESSION['add_adicional'] == 0)
+{
+    echo '<script>location.href = "../manager.php?nopermitido=true"</script>';
+}else
+{
   error_reporting(0);
   require_once 'db.php';
   session_start();
@@ -58,5 +64,5 @@
   }else {
       echo '<script>location.href = "../gest_vehicles.php?pagina=1&adicionalno=true"</script>';
   }
-
+}
 ?>

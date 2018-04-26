@@ -26,16 +26,23 @@ else
     $consulta = mysqli_query($con, "SELECT * FROM users WHERE username = '$user' AND password = '$pass'");
     if (mysqli_num_rows($consulta) > 0)
     {
-            $id_user = 0;
-            $nombre = "";
             while($row = mysqli_fetch_array($consulta))
             {
-              $id_user = $row[0];
-              $nombre = $row[3];
+              $_SESSION['usuario'] = $row[0];
+              $_SESSION['usuario_name'] = $row[3];
+              $_SESSION['add_titular'] = $row[4];
+              $_SESSION['edit_titular'] = $row[5];
+              $_SESSION['delete_titular'] = $row[6];
+              $_SESSION['add_vehicle'] = $row[7];
+              $_SESSION['edit_vehicle'] = $row[8];
+              $_SESSION['delete_vehicle'] = $row[9];
+              $_SESSION['add_adicional'] = $row[10];
+              $_SESSION['edit_adicional'] = $row[11];
+              $_SESSION['delete_adicional'] = $row[12];
+              $_SESSION['crud_users'] = $row[13];
+              $_SESSION['gen_reports'] = $row[14];
+              $_SESSION['delete_logs'] = $row[15];
             }
-
-            $_SESSION['usuario'] = $id_user;
-            $_SESSION['usuario_name'] = $nombre;
             echo '<script>location.href = "manager.php"</script>';
     }
     else

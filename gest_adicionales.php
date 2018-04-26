@@ -107,8 +107,8 @@
           <button class="button" onclick="Metro.dialog.open('."'#".$row[0]."'".')" ><span class="mif-eye"></span> Detalles</button>
           <button class="split dropdown-toggle"></button>
           <ul class="d-menu" data-role="dropdown">
-              <li><a onclick="'."edit".$row[0]."()".'"><span class="mif-pencil"></span> Editar adicional</a></li>
-              <li><a onclick="'."delete".$row[0]."()".'"><span class="mif-bin"></span> Eliminar adicional</a></li>
+              <li><a '.(($_SESSION['edit_adicional'] == 0)?' hidden':"").' onclick="'."edit".$row[0]."()".'"><span class="mif-pencil"></span> Editar adicional</a></li>
+              <li><a '.(($_SESSION['delete_adicional'] == 0)?' hidden':"").' onclick="'."delete".$row[0]."()".'"><span class="mif-bin"></span> Eliminar adicional</a></li>
           </ul>
       </div>
 
@@ -121,7 +121,7 @@
                   title: '".'<center><img class= "round100" src="'.$row[1].'"></center>'."',
                   content: '<div><center>EDITAR ADICIONAL</center><br><br>SUCURSAL ACTUAL: ".$row[11]."'
                       +'<form  action=func/edit_adicional_action.php method=POST enctype=multipart/form-data name=".'"editform'.$row[0].'"'." >'
-                      +'<select  name=sucursal id=sucursal required>'
+                      +'<select  name=sucursal id=sucursal>'
                       +'<option value=>SELECCIONE SUCURSAL SI DESEA CAMBIAR</option>'
                       +'".$body_suc."'
                       +'</select>'

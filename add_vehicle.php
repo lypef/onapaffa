@@ -8,6 +8,10 @@
 
   $sql_suc = "SELECT * FROM sucursales";
   $result_suc = mysqli_query($conn,$sql_suc) ;
+  if ($_SESSION['add_vehicle'] == 0)
+  {
+      echo '<script>location.href = "manager.php?nopermitido=true"</script>';
+  }
 ?>
 <br>
 <h2 id="inputs">Nuevo vehiculo</h2>

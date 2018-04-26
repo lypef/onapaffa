@@ -1,6 +1,11 @@
 <?php
+session_start();
+if ($_SESSION['add_vehicle'] == 0)
+{
+    echo '<script>location.href = "../manager.php?nopermitido=true"</script>';
+}else
+{
   error_reporting(0);
-  session_start();
   $userid = $_SESSION['usuario'];
 
   require_once 'db.php';
@@ -58,4 +63,5 @@
       echo '<script>location.href = "../add_vehicle.php?error=true&serie='.$serie.'&tipo='.$tipo.'&modelo='.$modelo.'&marca='.$marca.'&cilindros='.$cilindros.'&color='.$color.'&engomado='.$engomado.'&f_expedicion='.$f_expedicion.'&f_vencimiento='.$f_vencimiento.'&titular='.$titular.'&sucursal='.$suc.'"</script>';
     }
   }
+}
 ?>

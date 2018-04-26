@@ -1,7 +1,12 @@
 <?php
+session_start();
+if ($_SESSION['edit_vehicle'] == 0)
+{
+    echo '<script>location.href = "../manager.php?nopermitido=true"</script>';
+}else
+{
   error_reporting(0);
   require_once 'db.php';
-
   $id = $_POST['id'];
   $serie = $_POST['serie'];
   $tipo = $_POST["tipo"];
@@ -57,4 +62,5 @@
       echo '<script>location.href = "../gest_vehicles.php?pagina=1?&noupdate=true"</script>';
     }
   }
+}
 ?>

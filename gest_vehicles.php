@@ -114,11 +114,11 @@
           <ul class="d-menu" data-role="dropdown">
               <li><a onclick="'."renovar".$row[0]."()".'"><span class="mif-loop2"></span> Renovar</a></li>
               <li class="divider"></li>
-              <li><a onclick="'."adicional".$row[0]."()".'"><span class="mif-plus"></span> Nuevo adicional</a></li>
+              <li><a '.(($_SESSION['add_adicional'] == 0)?' hidden':"").' onclick="'."adicional".$row[0]."()".'"><span class="mif-plus"></span> Nuevo adicional</a></li>
               <li><a href="gest_adicionales.php?pagina=1&vehicle='.$row[0].'"><span class="mif-eye"></span> Ver adicionales</a></li>
               <li class="divider"></li>
-              <li><a onclick="'."edit".$row[0]."()".'"><span class="mif-pencil"></span> Editar vehiculo</a></li>
-              <li><a onclick="'."delete".$row[0]."()".'"><span class="mif-bin"></span> Eliminar vehiculo</a></li>
+              <li><a '.(($_SESSION['edit_vehicle'] == 0)?' hidden':"").' onclick="'."edit".$row[0]."()".'"><span class="mif-pencil"></span> Editar vehiculo</a></li>
+              <li><a '.(($_SESSION['delete_vehicle'] == 0)?' hidden':"").' onclick="'."delete".$row[0]."()".'"><span class="mif-bin"></span> Eliminar vehiculo</a></li>
           </ul>
       </div>
 

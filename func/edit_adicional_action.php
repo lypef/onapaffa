@@ -1,4 +1,10 @@
 <?php
+session_start();
+if ($_SESSION['edit_adicional'] == 0)
+{
+    echo '<script>location.href = "../manager.php?nopermitido=true"</script>';
+}else
+{
   error_reporting(0);
   require_once 'db.php';
 
@@ -55,4 +61,5 @@
       echo '<script>location.href = "../gest_adicionales.php?pagina=1?&noupdate=true"</script>';
     }
   }
+}
 ?>

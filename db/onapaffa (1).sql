@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 25-04-2018 a las 20:36:41
+-- Tiempo de generación: 26-04-2018 a las 08:56:35
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 5.6.34
 
@@ -69,7 +69,17 @@ INSERT INTO `logs` (`id`, `user`, `fecha`, `registro`) VALUES
 (11, 1, '2018-04-25 19:06:58', 'SE ACTUALIZO INFORMACION DE TITULAR: DANIELA FAINUS NUMERO DE USUARIO: 72'),
 (12, 1, '2018-04-25 19:07:08', 'SE ACTUALIZO INFORMACION DE TITULAR: ARLENE GARCIA AGUILAR NUMERO DE USUARIO: 72'),
 (38, 2, '2018-04-25 20:04:31', 'USUARIO ACTUALIZO SU INFORMACION'),
-(39, 1, '2018-04-25 20:04:39', 'USUARIO ACTUALIZO SU INFORMACION');
+(39, 1, '2018-04-25 20:04:39', 'USUARIO ACTUALIZO SU INFORMACION'),
+(40, 1, '2018-04-26 07:01:39', 'ALTA TITULAR:  C3 B1LKOJKLJKLJKL'),
+(41, 1, '2018-04-26 07:02:03', 'SE ACTUALIZO INFORMACION DE TITULAR:  C3 B1LKOJKLJKLJKL NUMERO DE USUARIO: 77'),
+(42, 1, '2018-04-26 07:02:14', 'SE ELIMINO TITULAR: AAAAAAAAAA NUMERO DE USUARIO: 77'),
+(43, 1, '2018-04-26 07:02:42', 'ALTA VEHICULO DE TITULAR CAROLINA MORAN NUMERO DE USUARIO: 76'),
+(44, 1, '2018-04-26 07:03:09', 'SE ACTUALIZO INIFORMACION VEHICULO NO. 17'),
+(45, 1, '2018-04-26 07:03:27', 'SE ELIMINO VEHICULO NO. 17'),
+(46, 1, '2018-04-26 07:04:05', 'SE AGREGO ADICIONAL: OLIJHIKLJHKLIJKLJKL. AL VEHICULO NO: 16. TITULAR: BRENDA KELLERMAN'),
+(47, 1, '2018-04-26 07:05:19', 'SE ACTUALIZO INFORMACION DE ADICIONAL: OLIJHIKLJHKLIJKLJKL NUMERO DE ADICIONAL: 23'),
+(49, 1, '2018-04-26 07:05:58', 'SE ELIMINO REGISTRO: 48'),
+(50, 1, '2018-04-26 07:51:23', 'USUARIO ACTUALIZO SU INFORMACION');
 
 -- --------------------------------------------------------
 
@@ -129,16 +139,28 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL
+  `name` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `add_titular` tinyint(1) NOT NULL DEFAULT '0',
+  `edit_titular` tinyint(1) NOT NULL DEFAULT '0',
+  `delete_titular` tinyint(1) NOT NULL DEFAULT '0',
+  `add_vehicle` tinyint(1) NOT NULL DEFAULT '0',
+  `edit_vehicle` tinyint(1) NOT NULL DEFAULT '0',
+  `delete_vehicle` tinyint(1) NOT NULL DEFAULT '0',
+  `add_adicional` tinyint(1) NOT NULL DEFAULT '0',
+  `edit_adicional` tinyint(1) NOT NULL DEFAULT '0',
+  `delete_adicional` tinyint(1) NOT NULL DEFAULT '0',
+  `crud_users` tinyint(1) NOT NULL DEFAULT '0',
+  `gen_reports` tinyint(1) NOT NULL DEFAULT '0',
+  `delete_logs` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `name`) VALUES
-(1, 'root', '63a9f0ea7bb98050796b649e85481845', 'FRANCISCO EDUARDO ASCENCIO DOMINGUEZ'),
-(2, 'demo', 'demo', 'lkijlkjhlk\r\n');
+INSERT INTO `users` (`id`, `username`, `password`, `name`, `add_titular`, `edit_titular`, `delete_titular`, `add_vehicle`, `edit_vehicle`, `delete_vehicle`, `add_adicional`, `edit_adicional`, `delete_adicional`, `crud_users`, `gen_reports`, `delete_logs`) VALUES
+(1, 'root', '63a9f0ea7bb98050796b649e85481845', 'FRANCISCO EDUARDO ASCENCIO DOMINGUEZ', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1),
+(2, 'demo', 'demo', 'NUEVO NOMBRE', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -231,13 +253,13 @@ ALTER TABLE `vehiculos`
 -- AUTO_INCREMENT de la tabla `adicionales`
 --
 ALTER TABLE `adicionales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de la tabla `sucursales`
@@ -249,19 +271,19 @@ ALTER TABLE `sucursales`
 -- AUTO_INCREMENT de la tabla `titulares`
 --
 ALTER TABLE `titulares`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `vehiculos`
 --
 ALTER TABLE `vehiculos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Restricciones para tablas volcadas

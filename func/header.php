@@ -53,6 +53,8 @@
         <!-- Finaliza modulo Reportes-->
         <!-- Inicia modulo titulaes-->
         <div class="group">
+            <? if ($_SESSION['add_titular'] != 0)
+            {?>
             <a href="add_titular.php">
             <button class="ribbon-button">
                     <span class="icon">
@@ -60,6 +62,7 @@
                     </span>
                 <span class="caption">Alta titular</span>
             </button></a>
+            <?}?>
 
             <a href="gest_titulares.php?pagina=1">
             <button class="ribbon-button">
@@ -83,6 +86,8 @@
 
         <!-- Inicia modulo vehiculos-->
         <div class="group">
+            <? if ($_SESSION['add_vehicle'] != 0)
+            {?>
             <a href="select_titular_addvehicle.php?pagina=1">
             <button class="ribbon-button">
                     <span class="icon">
@@ -90,6 +95,7 @@
                     </span>
                 <span class="caption">Alta vehiculo</span>
             </button></a>
+            <?}?>
 
             <a href="gest_vehicles.php?pagina=1">
             <button class="ribbon-button">
@@ -132,6 +138,7 @@
         </div>
         <!-- Finaliza modulo Adicionales-->
         <!-- Inicia modulo usuarios-->
+        <? if ($_SESSION['crud_users'] != 0){?>
         <div class="group">
             <button class="ribbon-button">
                     <span class="icon">
@@ -140,22 +147,18 @@
                 <span class="caption">Agregar usuario</span>
             </button>
 
-            <button class="ribbon-button">
-                    <span class="icon">
-                        <span class="mif-user-check"></span>
-                    </span>
-                <span class="caption">Editar usuario</span>
-            </button>
-
+            <a href="gest_users.php">
             <button class="ribbon-button">
                     <span class="icon">
                         <span class="mif-users"></span>
                     </span>
                 <span class="caption">Gestionar usuarios</span>
             </button>
+            </a>
 
             <span class="title">Usuarios</span>
         </div>
+        <?}?>
         <!-- Finaliza modulo usuarios-->
 
         <!-- Inicia modulo perfil-->
@@ -176,7 +179,7 @@
                      <span class="caption">Mis altas</span>
                  </button>
                 </a>
-                
+
                  <a href="my_logs.php?pagina=1">
                  <button class="ribbon-button">
                      <span class="icon">
