@@ -34,4 +34,19 @@
 		}
 		return $r;
 	}
+
+	function ReturnAddUserBool ($username)
+	{
+		$rr = true;
+		$result = mysql_query("SELECT id FROM users WHERE username = '$username'");
+		while($row = mysql_fetch_array($result))
+		{
+			$r = $row[0];
+		}
+		if ($r)
+		{
+			$rr = false;
+		}
+		return $rr;
+	}
 ?>

@@ -28,6 +28,9 @@
   <div class="content-holder">
       <div class="section" id="section-usuarios">
         <!-- Inicia modulo Reportes-->
+        <? if ($_SESSION['gen_reports'] != 0)
+        {?>
+
         <div class="group">
           <div class="ribbon-split-button">
               <button class="ribbon-main">
@@ -37,20 +40,19 @@
               </button>
               <span class="ribbon-split dropdown-toggle">Generar</span>
               <ul class="ribbon-dropdown" data-role="dropdown" data-duration="100">
-                  <li class="checked"><a href="#">Modification</a></li>
-                  <li class="checked"><a href="#">Type</a></li>
-                  <li class="checked"><a href="#">Size</a></li>
-                  <li><a href="#">Creating</a></li>
-                  <li><a href="#">Authors</a></li>
-                  <li class="checked-one"><a href="#">Tags</a></li>
-                  <li><a href="#">Names</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Columns...</a></li>
+                  <li><a href="#">Reportes titulares</a></li>
+                  <li><a href="#">Reportes vehiculos</a></li>
+                  <li><a href="#">Reportes adicionales</a></li>
+                  <li><a href="#">Engomados vencidos</a></li>
+                  <li><a href="#">Engomados por vencer</a></li>
               </ul>
             </div>
             <span class="title">Opciones</span>
         </div>
+        <?}?>
+
         <!-- Finaliza modulo Reportes-->
+
         <!-- Inicia modulo titulaes-->
         <div class="group">
             <? if ($_SESSION['add_titular'] != 0)
@@ -140,12 +142,14 @@
         <!-- Inicia modulo usuarios-->
         <? if ($_SESSION['crud_users'] != 0){?>
         <div class="group">
+            <a href="add_users.php">
             <button class="ribbon-button">
                     <span class="icon">
                         <span class="mif-user-plus"></span>
                     </span>
                 <span class="caption">Agregar usuario</span>
             </button>
+            </a>
 
             <a href="gest_users.php">
             <button class="ribbon-button">

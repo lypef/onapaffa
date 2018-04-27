@@ -19,7 +19,9 @@ if ($_SESSION['crud_users'] == 0)
     return $r;
   }
 
-  $id = $_POST['id'];
+  $name = $_POST['nombre'];
+  $username = $_POST['username'];
+  $password = md5($_POST['password']);
   $add_titular = GetIntValue($_POST['add_titular']);
   $edit_titular = GetIntValue($_POST['edit_titular']);
   $delete_titular = GetIntValue($_POST['delete_titular']);
@@ -34,14 +36,20 @@ if ($_SESSION['crud_users'] == 0)
   $delete_logs = GetIntValue($_POST['delete_logs']);
   $gest_sucursales = GetIntValue($_POST['gest_sucursales']);
 
-  $sql = "UPDATE users SET add_titular = '$add_titular', edit_titular = '$edit_titular', delete_titular = '$delete_titular', add_vehicle = '$add_vehicle', edit_vehicle = '$edit_vehicle', delete_vehicle = '$delete_vehicle', add_adicional = '$add_adicional', edit_adicional = '$edit_adicional', delete_adicional = '$delete_adicional', crud_users = '$crud_users', gen_reports = '$gen_reports', delete_logs = '$delete_logs', gest_sucursales = '$gest_sucursales' WHERE id = '$id';";
+  $sql = "INSERT INTO users (username, password, name, add_titular, edit_titular, delete_titular, add_vehicle, edit_vehicle, delete_vehicle, add_adicional, edit_adicional, delete_adicional, crud_users, gen_reports, delete_logs, gest_sucursales) VALUES ('$username', '$password', '$name', '$add_titular', '$edit_titular', '$delete_titular', '$add_vehicle', '$edit_vehicle', '$delete_vehicle', '$add_adicional', '$edit_adicional', '$delete_adicional', '$crud_users', '$gen_reports', '$delete_logs', '$gest_sucursales');";
 
-  mysql_query($sql);
-  if (mysql_affected_rows() > 0)
+  if (ReturnAddUserBool($username))
   {
-    echo '<script> location.href = "../gest_users.php?update_profile=true";</script>';
+    mysql_query($sql);
+    if (mysql_affected_rows() > 0)
+    {
+      echo '<script> location.href = "../add_users.php?add=true";</script>';
+    }else {
+      echo '<script> location.href = "../add_users.php?noadd=true";</script>';
+    }
   }else {
-    echo '<script> location.href = "../gest_users.php?noupdate_profile=true";</script>';
+    echo '<script> location.href = "../add_users.php?exist=true";</script>';
   }
+
 }
 ?>

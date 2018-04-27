@@ -116,73 +116,82 @@
           ".$row[3]."</div>
           <div class='dialog-content'>
             <form  action=func/edit_permisos_user.php method='POST'>
+            <input id='id' name='id' hidden value=".$row[0].">
+            <div class='row'>
+
+              <div class='cell-md-6'>
 
               <label class='container1'>Agregar titular
                 <input id='add_titular' name='add_titular' type='checkbox' ".(($row[4] == 1)?' checked':'').">
                 <span class='checkmark1'></span>
               </label>
 
-              <label class='container1'>Agregar titular
-                <input id='add_titular' name='add_titular' type='checkbox' ".(($row[4] == 1)?' checked':'').">
+              <label class='container1'>Editar titular
+                <input id='edit_titular' name='edit_titular' type='checkbox' ".(($row[5] == 1)?' checked':'').">
                 <span class='checkmark1'></span>
               </label>
 
-              <label class='container1'>Agregar titular
-                <input id='add_titular' name='add_titular' type='checkbox' ".(($row[4] == 1)?' checked':'').">
+              <label class='container1'>Eliminar titular
+                <input id='delete_titular' name='delete_titular' type='checkbox' ".(($row[6] == 1)?' checked':'').">
                 <span class='checkmark1'></span>
               </label>
 
-              <label class='container1'>Agregar titular
-                <input id='add_titular' name='add_titular' type='checkbox' ".(($row[4] == 1)?' checked':'').">
+              <label class='container1'>Agregar vehiculo
+                <input id='add_vehicle' name='add_vehicle' type='checkbox' ".(($row[7] == 1)?' checked':'').">
                 <span class='checkmark1'></span>
               </label>
 
-              <label class='container1'>Agregar titular
-                <input id='add_titular' name='add_titular' type='checkbox' ".(($row[4] == 1)?' checked':'').">
+              <label class='container1'>Editar vehiculo
+                <input id='edit_vehicle' name='edit_vehicle' type='checkbox' ".(($row[8] == 1)?' checked':'').">
                 <span class='checkmark1'></span>
               </label>
 
-              <label class='container1'>Agregar titular
-                <input id='add_titular' name='add_titular' type='checkbox' ".(($row[4] == 1)?' checked':'').">
+              <label class='container1'>Eliminar vehiculo
+                <input id='delete_vehicle' name='delete_vehicle' type='checkbox' ".(($row[9] == 1)?' checked':'').">
                 <span class='checkmark1'></span>
               </label>
 
-              <label class='container1'>Agregar titular
-                <input id='add_titular' name='add_titular' type='checkbox' ".(($row[4] == 1)?' checked':'').">
+              <label class='container1'>Agregar adicional
+                <input id='add_adicional' name='add_adicional' type='checkbox' ".(($row[10] == 1)?' checked':'').">
+                <span class='checkmark1'></span>
+              </label>
+              </div>
+
+              <div class='cell-md-6'>
+              <label class='container1'>Editar adicional
+                <input id='edit_adicional' name='edit_adicional' type='checkbox' ".(($row[11] == 1)?' checked':'').">
                 <span class='checkmark1'></span>
               </label>
 
-              <label class='container1'>Agregar titular
-                <input id='add_titular' name='add_titular' type='checkbox' ".(($row[4] == 1)?' checked':'').">
+              <label class='container1'>Eliminar adicional
+                <input id='delete_adicional' name='delete_adicional' type='checkbox' ".(($row[12] == 1)?' checked':'').">
                 <span class='checkmark1'></span>
               </label>
 
-              <label class='container1'>Agregar titular
-                <input id='add_titular' name='add_titular' type='checkbox' ".(($row[4] == 1)?' checked':'').">
+              <label class='container1'>Gestionar usuarios
+                <input id='crud_users' name='crud_users' type='checkbox' ".(($row[13] == 1)?' checked':'').">
                 <span class='checkmark1'></span>
               </label>
 
-              <label class='container1'>Agregar titular
-                <input id='add_titular' name='add_titular' type='checkbox' ".(($row[4] == 1)?' checked':'').">
+              <label class='container1'>Generar reportes
+                <input id='gen_reports' name='gen_reports' type='checkbox' ".(($row[14] == 1)?' checked':'').">
                 <span class='checkmark1'></span>
               </label>
 
-              <label class='container1'>Agregar titular
-                <input id='add_titular' name='add_titular' type='checkbox' ".(($row[4] == 1)?' checked':'').">
+              <label class='container1'>Eliminar registros
+                <input id='delete_logs' name='delete_logs' type='checkbox' ".(($row[15] == 1)?' checked':'').">
                 <span class='checkmark1'></span>
               </label>
 
-              <input ".(($row[5] == 1)?' checked':'')." id='edit_titular' name='edit_titular' type='checkbox' data-role='switch' data-caption='Editar titular' title=''>
-              <input ".(($row[6] == 1)?' checked':'')." id='delete_titular' name='delete_titular' type='checkbox' data-role='switch' data-caption='Eliminar titular' title=''>
-              <input ".(($row[7] == 1)?' checked':'')." id='add_vehicle' name='add_vehicle' type='checkbox' data-role='switch' data-caption='Agregar vehiculos' title=''>
-              <input ".(($row[8] == 1)?' checked':'')." id='edit_vehicle' name='edit_vehicle' type='checkbox' data-role='switch' data-caption='Editar vehiculos' title=''>
-              <input ".(($row[9] == 1)?' checked':'')." id='delete_vehicle' name='delete_vehicle' type='checkbox' data-role='switch' data-caption='Eliminar vehiculos' title=''>
-              <input ".(($row[10] == 1)?' checked':'')." id='add_adicional' name='add_adicional' type='checkbox' data-role='switch' data-caption='Agregar adicional' title=''>
-              <input ".(($row[11] == 1)?' checked':'')." id='edit_adicional' name='edit_adicional' type='checkbox' data-role='switch' data-caption='Editar adicional' title=''>
-              <input ".(($row[12] == 1)?' checked':'')." id='delete_adicional' name='delete_adicional' type='checkbox' data-role='switch' data-caption='Eliminar adicional' title=''>
-              <input ".(($row[13] == 1)?' checked':'')." id='crud_users' name='crud_users' type='checkbox' data-role='switch' data-caption='Gestion usuarios' title=''>
-              <input ".(($row[14] == 1)?' checked':'')." id='gen_reports' name='gen_reports' type='checkbox' data-role='switch' data-caption='Generar reportes' title=''>
-              <input ".(($row[15] == 1)?' checked':'')." id='delete_logs' name='delete_logs' type='checkbox' data-role='switch' data-caption='Eliminar registros' title=''>
+              <label class='container1'>Gestionar sucursales
+                <input id='gest_sucursales' name='gest_sucursales' type='checkbox' ".(($row[16] == 1)?' checked':'').">
+                <span class='checkmark1'></span>
+              </label>
+              </div>
+            </div>
+
+
+
           </div>
           <div class='dialog-actions'>
               <button type='submit' class='button info'><span class='mif-checkmark'></span> Guardar</button>

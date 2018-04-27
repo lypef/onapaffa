@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 26-04-2018 a las 08:56:35
+-- Tiempo de generación: 27-04-2018 a las 06:44:21
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 5.6.34
 
@@ -151,16 +151,17 @@ CREATE TABLE `users` (
   `delete_adicional` tinyint(1) NOT NULL DEFAULT '0',
   `crud_users` tinyint(1) NOT NULL DEFAULT '0',
   `gen_reports` tinyint(1) NOT NULL DEFAULT '0',
-  `delete_logs` tinyint(1) NOT NULL DEFAULT '0'
+  `delete_logs` tinyint(1) NOT NULL DEFAULT '0',
+  `gest_sucursales` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `name`, `add_titular`, `edit_titular`, `delete_titular`, `add_vehicle`, `edit_vehicle`, `delete_vehicle`, `add_adicional`, `edit_adicional`, `delete_adicional`, `crud_users`, `gen_reports`, `delete_logs`) VALUES
-(1, 'root', '63a9f0ea7bb98050796b649e85481845', 'FRANCISCO EDUARDO ASCENCIO DOMINGUEZ', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1),
-(2, 'demo', 'demo', 'NUEVO NOMBRE', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `users` (`id`, `username`, `password`, `name`, `add_titular`, `edit_titular`, `delete_titular`, `add_vehicle`, `edit_vehicle`, `delete_vehicle`, `add_adicional`, `edit_adicional`, `delete_adicional`, `crud_users`, `gen_reports`, `delete_logs`, `gest_sucursales`) VALUES
+(1, 'root', '63a9f0ea7bb98050796b649e85481845', 'FRANCISCO EDUARDO ASCENCIO DOMINGUEZ', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(2, 'demo', 'fe01ce2a7fbac8fafaed7c982a04e229', 'NUEVO NOMBRE', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -253,7 +254,7 @@ ALTER TABLE `vehiculos`
 -- AUTO_INCREMENT de la tabla `adicionales`
 --
 ALTER TABLE `adicionales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
@@ -271,19 +272,19 @@ ALTER TABLE `sucursales`
 -- AUTO_INCREMENT de la tabla `titulares`
 --
 ALTER TABLE `titulares`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `vehiculos`
 --
 ALTER TABLE `vehiculos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Restricciones para tablas volcadas

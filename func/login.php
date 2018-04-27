@@ -42,6 +42,7 @@ else
               $_SESSION['crud_users'] = $row[13];
               $_SESSION['gen_reports'] = $row[14];
               $_SESSION['delete_logs'] = $row[15];
+              $_SESSION['gest_sucursales'] = $row[16];
             }
             echo '<script>location.href = "manager.php"</script>';
     }
