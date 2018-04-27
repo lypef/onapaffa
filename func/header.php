@@ -165,6 +165,30 @@
         <?}?>
         <!-- Finaliza modulo usuarios-->
 
+        <!-- Inicia modulo sucursales-->
+        <? if ($_SESSION['gest_sucursales'] != 0){?>
+        <div class="group">
+            <button onclick="add_suc()" class="ribbon-button">
+                    <span class="icon">
+                        <span class="mif-plus"></span>
+                    </span>
+                <span class="caption">Agregar sucursal</span>
+            </button>
+
+            <a href="gest_sucursales.php">
+            <button class="ribbon-button">
+                    <span class="icon">
+                        <span class="mif-library"></span>
+                    </span>
+                <span class="caption">Gestionar sucursales</span>
+            </button>
+            </a>
+
+            <span class="title">Sucursales</span>
+        </div>
+        <?}?>
+        <!-- Finaliza modulo sucursales-->
+
         <!-- Inicia modulo perfil-->
         <div class="group">
 
@@ -206,6 +230,32 @@
 echo
 "
 <script>
+function add_suc(){
+    Metro.dialog.create({
+        title: '<p>Nueva sucursal',
+        content: '<div>'
+        +'<form  action=func/add_sucursal.php method=POST name=add_suc>'
+            +'<input  id=name name=name type=text  data-role=input data-prepend=".'Nombre: '." placeholder=".'"Esciba nombre de sucursal"'." autofocus>'
+            +'<input  id=direccion name=direccion type=text  data-role=input data-prepend=".'Direccion: '." placeholder=".'"Direccion sucursal"'." >'
+            +'<input  id=telefono name=telefono type=text  data-role=input data-prepend=".'Telefono: '." placeholder=".'"Telfono de sucursal"'." >'
+            +'<input type=submit hidden>'
+        +'</form></div>',
+        actions: [
+            {
+                caption: '<span class=mif-plus></span> Agregar',
+                cls: 'js-dialog-close info',
+                onclick: function(){
+                    document.add_suc.submit()
+                }
+            },
+            {
+                caption: '<span class=mif-cross></span>',
+                cls: 'js-dialog-close'
+            }
+        ]
+    });
+}
+
 function update_profile(){
     Metro.dialog.create({
         title: '<p>',
