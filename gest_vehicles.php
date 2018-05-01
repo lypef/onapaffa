@@ -74,15 +74,15 @@
 
     if (isset($_GET["search"]))
     {
-      $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto, t.id, s.nombre FROM vehiculos v, titulares t, sucursales s where v.titular = t.id and v.sucursal = s.id and t.nombre LIKE '%".$txt_buscar."%' or v.titular = t.id and v.sucursal = s.id and v.serie LIKE '%".$txt_buscar."%' or v.titular = t.id and v.sucursal = s.id and v.modelo LIKE '%".$txt_buscar."%' or v.titular = t.id and v.sucursal = s.id and v.marca LIKE '%".$txt_buscar."%' or v.titular = t.id and v.sucursal = s.id and v.engomado LIKE '%".$txt_buscar."%' or v.titular = t.id and v.sucursal = s.id and t.nombre LIKE '%".$txt_buscar."%' ORDER BY v.id";
+      $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto, t.id, s.nombre, v.linea FROM vehiculos v, titulares t, sucursales s where v.titular = t.id and v.sucursal = s.id and t.nombre LIKE '%".$txt_buscar."%' or v.titular = t.id and v.sucursal = s.id and v.serie LIKE '%".$txt_buscar."%' or v.titular = t.id and v.sucursal = s.id and v.modelo LIKE '%".$txt_buscar."%' or v.titular = t.id and v.sucursal = s.id and v.marca LIKE '%".$txt_buscar."%' or v.titular = t.id and v.sucursal = s.id and v.engomado LIKE '%".$txt_buscar."%' or v.titular = t.id and v.sucursal = s.id and t.nombre LIKE '%".$txt_buscar."%' ORDER BY v.id";
     }
     elseif (isset($_GET["titular"]))
     {
         $titular = $_GET["titular"];
-        $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto, t.id, s.nombre FROM vehiculos v, titulares t, sucursales s where v.titular = t.id and v.sucursal = s.id and t.id =  $titular ";
+        $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto, t.id, s.nombre, v.linea FROM vehiculos v, titulares t, sucursales s where v.titular = t.id and v.sucursal = s.id and t.id =  $titular ";
     }
     else {
-      $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto, t.id, s.nombre FROM vehiculos v, titulares t, sucursales s where v.titular = t.id and v.sucursal = s.id ORDER BY v.id desc LIMIT $inicio, $TAMANO_PAGINA";
+      $sql = "SELECT v.id, t.nombre, v.serie, v.tipo, v.modelo, v.marca, v.cilindros, v.color, v.engomado, v.f_expedicion, v.f_vencimiento, REPLACE(REPLACE(v.estatus, 0, 'VENCIDO'), 1, 'VIGENTE'), v.foto, t.id, s.nombre, v.linea FROM vehiculos v, titulares t, sucursales s where v.titular = t.id and v.sucursal = s.id ORDER BY v.id desc LIMIT $inicio, $TAMANO_PAGINA";
     }
     $result = mysqli_query($conn,$sql);
 
@@ -254,6 +254,7 @@
             <div class='dialog-content'>
                 TITULAR: ".$row[1]."
                 <br><br>SERIE: ".$row[2]."
+                <br>LINEA: ".$row[15]."
                 <br>TIPO: ".$row[3]."
                 <br>MODELO: ".$row[4]."
                 <br>MARCA: ".$row[5]."

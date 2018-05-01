@@ -36,7 +36,14 @@
           ?>
         </select>
         <input id="serie" name="serie" type="text" data-role="input" data-prepend="Serie:" placeholder="Serie del vehiculo" maxlength="17" required>
-        <input id="tipo" name="tipo" type="text" data-role="input" data-prepend="Tipo:" placeholder="Tipo de vehiculo" required>
+        <input id="linea" name="linea" type="text" data-role="input" data-prepend="Linea:" placeholder="Linea a la que pertenece el vehiculo" required>
+        <select  name="tipo" id="tipo" required>
+          <option value="">SELECCIONE UN TIPO DE VEHICULO</option>
+          <option value="SEDAN">SEDAN</option>
+          <option value="VAGONETA">VAGONETA</option>
+          <option value="PICKUP">PICKUP</option>
+          <option value="CAMION">CAMION</option>
+        </select>
         <input id="modelo" name="modelo" type="text" data-role="input" data-prepend="Modelo:" placeholder="Modelo del vehiculo" required>
         <input id="marca" name="marca" type="text" data-role="input" data-prepend="Marca:" placeholder="Marca del vehiculo" required>
         <input id="cilindros" name="cilindros" type="text" data-role="input" data-prepend="No. de cilindros:" placeholder="Numero de cilindros" required>

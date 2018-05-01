@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 27-04-2018 a las 06:44:21
+-- Tiempo de generación: 01-05-2018 a las 09:14:00
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 5.6.34
 
@@ -79,7 +79,20 @@ INSERT INTO `logs` (`id`, `user`, `fecha`, `registro`) VALUES
 (46, 1, '2018-04-26 07:04:05', 'SE AGREGO ADICIONAL: OLIJHIKLJHKLIJKLJKL. AL VEHICULO NO: 16. TITULAR: BRENDA KELLERMAN'),
 (47, 1, '2018-04-26 07:05:19', 'SE ACTUALIZO INFORMACION DE ADICIONAL: OLIJHIKLJHKLIJKLJKL NUMERO DE ADICIONAL: 23'),
 (49, 1, '2018-04-26 07:05:58', 'SE ELIMINO REGISTRO: 48'),
-(50, 1, '2018-04-26 07:51:23', 'USUARIO ACTUALIZO SU INFORMACION');
+(50, 1, '2018-04-26 07:51:23', 'USUARIO ACTUALIZO SU INFORMACION'),
+(51, 1, '2018-04-27 18:32:57', 'AGREGO SUCURSAL: NOMBRE'),
+(52, 1, '2018-04-27 18:33:38', 'AGREGO SUCURSAL: NOMBRE'),
+(53, 1, '2018-04-27 18:35:31', 'AGREGO SUCURSAL: HJKL'),
+(54, 1, '2018-04-27 18:44:18', 'AGREGO SUCURSAL: GHJK'),
+(55, 1, '2018-04-27 18:46:03', 'AGREGO SUCURSAL: HNJM,.'),
+(56, 1, '2018-04-27 18:46:06', 'AGREGO SUCURSAL: GBHNJMK,'),
+(57, 1, '2018-04-27 18:46:28', 'AGREGO SUCURSAL: GHJK'),
+(58, 1, '2018-04-27 18:46:30', 'AGREGO SUCURSAL: HGJNMK,'),
+(59, 1, '2018-05-01 06:35:40', 'ALTA VEHICULO DE TITULAR BRENDA KELLERMAN NUMERO DE USUARIO: 75'),
+(60, 1, '2018-05-01 06:36:54', 'ALTA VEHICULO DE TITULAR BRENDA KELLERMAN NUMERO DE USUARIO: 75'),
+(61, 1, '2018-05-01 06:39:26', 'ALTA VEHICULO DE TITULAR CAROLINA MORAN NUMERO DE USUARIO: 76'),
+(62, 1, '2018-05-01 06:41:05', 'ALTA VEHICULO DE TITULAR DANIELA FAINUS NUMERO DE USUARIO: 74'),
+(63, 1, '2018-05-01 06:42:23', 'ALTA VEHICULO DE TITULAR DANIELA FAINUS NUMERO DE USUARIO: 74');
 
 -- --------------------------------------------------------
 
@@ -100,7 +113,9 @@ CREATE TABLE `sucursales` (
 
 INSERT INTO `sucursales` (`id`, `nombre`, `direccion`, `telefono`) VALUES
 (1, 'SUCURSAL NUMERO 1', 'DIRECCION DE LA SUCURSAL NUMERO 1', 'TELEFONO DE LA SUCURSAL'),
-(2, 'OTRA SUCURSAL', 'DIRECCION', '4545');
+(2, 'OTRA SUCURSAL', 'DIRECCION', '4545'),
+(6, 'SUCURSAL ACTUALIZADA', 'DIRECCION ACTUALIZADA', 'TELEFONO UP'),
+(9, 'ghjk', 'yhjk', 'ghjk');
 
 -- --------------------------------------------------------
 
@@ -184,17 +199,23 @@ CREATE TABLE `vehiculos` (
   `estatus` tinyint(1) NOT NULL,
   `foto` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
   `atendio` int(11) NOT NULL,
-  `sucursal` int(11) NOT NULL
+  `sucursal` int(11) NOT NULL,
+  `linea` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `vehiculos`
 --
 
-INSERT INTO `vehiculos` (`id`, `titular`, `serie`, `tipo`, `modelo`, `marca`, `cilindros`, `color`, `engomado`, `f_expedicion`, `f_vencimiento`, `estatus`, `foto`, `atendio`, `sucursal`) VALUES
-(14, 74, '66565656565656565', '566545', '454', '545', '45', '45', '45', '2018-04-25', '2019-04-25', 1, 'fotografias/vehiculo_20180425191053.jpg', 1, 1),
-(15, 73, 'lkjlkjkljkljkl', 'klj', 'kljkl', 'kljkl', 'jkl', 'jkl', 'jlk', '2018-04-25', '2019-04-25', 1, 'fotografias/vehiculo_20180425191307.jpg', 1, 1),
-(16, 75, '665656565', 'hjkjkhjk', 'hjk', 'hjkhjk', 'hjk', 'hjkh', 'jkhjkhjk', '2018-04-24', '2019-04-24', 1, 'fotografias/vehiculo_20180425191905.jpg', 1, 1);
+INSERT INTO `vehiculos` (`id`, `titular`, `serie`, `tipo`, `modelo`, `marca`, `cilindros`, `color`, `engomado`, `f_expedicion`, `f_vencimiento`, `estatus`, `foto`, `atendio`, `sucursal`, `linea`) VALUES
+(14, 74, '66565656565656565', '566545', '454', '545', '45', '45', 'ENGOMADO', '2018-04-25', '2019-04-25', 1, 'fotografias/vehiculo_20180425191053.jpg', 1, 1, ''),
+(15, 73, 'lkjlkjkljkljkl', 'klj', 'kljkl', 'kljkl', 'jkl', 'jkl', 'jlk', '2018-04-25', '2019-04-25', 1, 'fotografias/vehiculo_20180425191307.jpg', 1, 1, ''),
+(16, 75, '665656565', 'hjkjkhjk', 'hjk', 'hjkhjk', 'hjk', 'hjkh', 'jkhjkhjk', '2018-04-24', '2019-04-24', 1, 'fotografias/vehiculo_20180425191905.jpg', 1, 1, ''),
+(17, 75, 'GHJKL', 'SEDAN', 'HJKL', 'HJK,', 'GHJKM', 'HGJK,L', 'HJKL', '2018-05-01', '2019-05-02', 0, 'fotografias/vehiculo_20180501063540.jpg', 1, 1, ''),
+(18, 75, 'IUJOKLP', 'VAGONETA', 'HGJKL', 'GHJ', 'HJKL', 'JHK', 'GHJKL', '2018-05-01', '2019-05-02', 1, 'ninguna', 1, 1, ''),
+(19, 76, 'uyhjklÃ±', 'SEDAN', 'hjk', 'hyjk', 'yhujk', 'hyujk', 'hjk', '2018-05-01', '2019-05-02', 1, 'ninguna', 1, 1, ''),
+(20, 74, 'ghjklÃ±', 'VAGONETA', 'hjkl', 'yuhijk', 'yhijuk', 'jiuokl', 'jiklÃ±', '2018-05-01', '2019-05-02', 0, 'ninguna', 1, 2, ''),
+(21, 74, 'hjklÃ±{', 'SEDAN', 'yhjklÃ±', 'yhujkl', 'tgyhujikol', 'yhujikol', 'tgyhujk', '2018-05-01', '2019-05-02', 1, 'ninguna', 1, 1, 'linea numero ooooo');
 
 --
 -- Índices para tablas volcadas
@@ -260,13 +281,13 @@ ALTER TABLE `adicionales`
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT de la tabla `sucursales`
 --
 ALTER TABLE `sucursales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `titulares`
@@ -278,13 +299,13 @@ ALTER TABLE `titulares`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `vehiculos`
 --
 ALTER TABLE `vehiculos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Restricciones para tablas volcadas

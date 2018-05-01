@@ -38,16 +38,29 @@
                       <span class="mif-file-pdf"></span>
                   </span>
               </button>
-              <span class="ribbon-split dropdown-toggle">Generar</span>
+              <span class="ribbon-split dropdown-toggle">pdf</span>
               <ul class="ribbon-dropdown" data-role="dropdown" data-duration="100">
-                  <li><a href="#">Reportes titulares</a></li>
-                  <li><a href="#">Reportes vehiculos</a></li>
-                  <li><a href="#">Reportes adicionales</a></li>
-                  <li><a href="#">Engomados vencidos</a></li>
-                  <li><a href="#">Engomados por vencer</a></li>
+                  <li><a href="reports/reporte_titulares.php">Reportes titulares</a></li>
+                  <li><a href="reports/reporte_vehicles.php">Reportes vehiculos</a></li>
+                  <li><a href="reports/reporte_adicionales.php">Reportes adicionales</a></li>
+                  <li><a href="reports/reporte_vehicles_vencidos.php">Engomados vencidos</a></li>
               </ul>
             </div>
-            <span class="title">Opciones</span>
+            <div class="ribbon-split-button">
+              <button class="ribbon-main">
+                  <span class="icon ribbon-main">
+                      <span class="mif-file-excel"></span>
+                  </span>
+              </button>
+              <span class="ribbon-split dropdown-toggle">xls</span>
+              <ul class="ribbon-dropdown" data-role="dropdown" data-duration="100">
+                  <li><a href="reports/reporte_titulares_xls.php">Reportes titulares</a></li>
+                  <li><a href="reports/reporte_vehicles_xls.php">Reportes vehiculos</a></li>
+                  <li><a href="reports/reporte_adicionales_xls.php">Reportes adicionales</a></li>
+                  <li><a href="reports/reporte_vehicles_vencidos_xls.php">Engomados vencidos</a></li>
+              </ul>
+            </div>
+            <span class="title">REPORTES</span>
         </div>
         <?}?>
 

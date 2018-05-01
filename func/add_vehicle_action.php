@@ -19,6 +19,7 @@ if ($_SESSION['add_vehicle'] == 0)
   $cilindros = $_POST['cilindros'];
   $color = $_POST['color'];
   $engomado = $_POST['engomado'];
+  $linea = $_POST['linea'];
   $f_expedicion = str_replace("/","-",$_POST['f_expedicion']);
   $f_vencimiento = str_replace("/","-",$_POST['f_vencimiento']);
 
@@ -41,8 +42,8 @@ if ($_SESSION['add_vehicle'] == 0)
   {
     if (copy($ruta,$destino))
     {
-      mysql_query("insert into vehiculos (titular, serie, tipo, modelo, marca, cilindros, color, engomado, f_expedicion, f_vencimiento, estatus, foto, atendio, sucursal)
-                values ('$titular', '$serie', '$tipo', '$modelo', '$marca', '$cilindros', '$color', '$engomado', '$f_expedicion', '$f_vencimiento', '$estatus', '$ruta_foto', '$userid', '$suc')");
+      mysql_query("insert into vehiculos (titular, serie, tipo, modelo, marca, cilindros, color, engomado, f_expedicion, f_vencimiento, estatus, foto, atendio, sucursal, linea)
+                values ('$titular', '$serie', '$tipo', '$modelo', '$marca', '$cilindros', '$color', '$engomado', '$f_expedicion', '$f_vencimiento', '$estatus', '$ruta_foto', '$userid', '$suc', '$linea')");
       if (mysql_affected_rows() > 0)
       {
         AddLog($log);
@@ -54,7 +55,7 @@ if ($_SESSION['add_vehicle'] == 0)
         echo '<script>location.href = "../add_vehicle.php?error_image=true&serie='.$serie.'&tipo='.$tipo.'&modelo='.$modelo.'&marca='.$marca.'&cilindros='.$cilindros.'&color='.$color.'&engomado='.$engomado.'&f_expedicion='.$f_expedicion.'&f_vencimiento='.$f_vencimiento.'&titular='.$titular.'&sucursal='.$suc.'"</script>';
     }
   }else {
-    mysql_query("insert into vehiculos (titular, serie, tipo, modelo, marca, cilindros, color, engomado, f_expedicion, f_vencimiento, estatus, foto, atendio, sucursal) values ('$titular', '$serie', '$tipo', '$modelo', '$marca', '$cilindros', '$color', '$engomado', '$f_expedicion', '$f_vencimiento', '$estatus', 'ninguna', '$userid', '$suc')");
+    mysql_query("insert into vehiculos (titular, serie, tipo, modelo, marca, cilindros, color, engomado, f_expedicion, f_vencimiento, estatus, foto, atendio, sucursal, linea) values ('$titular', '$serie', '$tipo', '$modelo', '$marca', '$cilindros', '$color', '$engomado', '$f_expedicion', '$f_vencimiento', '$estatus', 'ninguna', '$userid', '$suc', '$linea')");
     if (mysql_affected_rows() > 0)
     {
       AddLog($log);
