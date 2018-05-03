@@ -112,6 +112,8 @@
           <button class="button" onclick="Metro.dialog.open('."'#".$row[0]."'".')" ><span class="mif-eye"></span> Detalles</button>
           <button class="split dropdown-toggle"></button>
           <ul class="d-menu" data-role="dropdown">
+              <li><a href="reports/credencial.php?id='.$row[0].'"><span class="mif-credit-card"></span> Credencial</a></li>
+              <li class="divider"></li>
               <li><a onclick="'."renovar".$row[0]."()".'"><span class="mif-loop2"></span> Renovar</a></li>
               <li class="divider"></li>
               <li><a '.(($_SESSION['add_adicional'] == 0)?' hidden':"").' onclick="'."adicional".$row[0]."()".'"><span class="mif-plus"></span> Nuevo adicional</a></li>
