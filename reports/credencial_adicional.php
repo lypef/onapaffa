@@ -77,8 +77,8 @@ while($r=mysql_fetch_array($sql)){
 }
 $codigoHTML.='
 <div class="contenedor">
-	<img src="../anverso.jpg" height="204" width="325">&nbsp;
-	<img src="../reverso.jpg" height="204" width="325">
+	<img src="../images/anverso.jpg" height="204" width="325">&nbsp;
+	<img src="../images/reverso.jpg" height="204" width="325">
   <div style="
 	position: absolute;
 	top: 62px;

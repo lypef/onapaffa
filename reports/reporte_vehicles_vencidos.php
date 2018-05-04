@@ -23,6 +23,10 @@ $codigoHTML='
 <title>Reporte</title>
 </head>
 <body>
+<div style="align: left;">
+	<img src="../images/logo.jpg">
+</div>
+<p>
 <table width="100%" border="0" cellspacing="0" cellpadding="4">
   <tr>
     <td colspan="8" bgcolor="red"><CENTER><strong>REPORTE DE ENGOMADOS VENCIDOS</strong></CENTER></td>

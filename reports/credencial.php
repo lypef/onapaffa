@@ -77,8 +77,8 @@ while($r=mysql_fetch_array($sql)){
 }
 $codigoHTML.='
 <div class="contenedor">
-	<img src="../anverso.jpg" height="204" width="325">&nbsp;
-	<img src="../reverso.jpg" height="204" width="325">
+	<img src="../images/anverso.jpg" height="204" width="325">&nbsp;
+	<img src="../images/reverso.jpg" height="204" width="325">
   <div style="
 	position: absolute;
 	top: 62px;
@@ -113,56 +113,56 @@ $codigoHTML.='
 	<div style="
 	position: absolute;
 	top: 8px;
-	left: 372px;
+	left: 360px;
 	font-size: .7em;
 	font-family: Arial, Helvetica, sans-serif;
 	color: red;
-	">No. Engomado: '.$engomado.'</div>
+	">NO. ENGOMADO: '.$engomado.'</div>
 
 	<div style="
 	position: absolute;
 	top: 26px;
-	left: 372px;
+	left: 360px;
 	font-size: .7em;
 	font-family: Arial, Helvetica, sans-serif;
 	color: red;
-	">Modelo: '.$modelo.'</div>
+	">MODELO: '.$modelo.'</div>
 
 	<div style="
 	position: absolute;
 	top: 43px;
-	left: 372px;
+	left: 360px;
 	font-size: .7em;
 	font-family: Arial, Helvetica, sans-serif;
 	color: red;
-	">Marca: '.$marca.'</div>
+	">MARCA: '.$marca.'</div>
 
 	<div style="
 	position: absolute;
 	top: 60px;
-	left: 372px;
+	left: 360px;
 	font-size: .7em;
 	font-family: Arial, Helvetica, sans-serif;
 	color: red;
-	">Linea: '.$linea.'</div>
+	">LINEA: '.$linea.'</div>
 
 	<div style="
 	position: absolute;
 	top: 78px;
-	left: 372px;
+	left: 360px;
 	font-size: .7em;
 	font-family: Arial, Helvetica, sans-serif;
 	color: red;
-	">Tipo: '.$tipo.'</div>
+	">TIPO: '.$tipo.'</div>
 
 	<div style="
 	position: absolute;
 	top: 96px;
-	left: 372px;
+	left: 360px;
 	font-size: .7em;
 	font-family: Arial, Helvetica, sans-serif;
 	color: red;
-	">Serie: '.$serie.'</div>
+	">SERIE: '.$serie.'</div>
 
 	<div style="
 	position: absolute;
