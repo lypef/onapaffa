@@ -300,7 +300,7 @@ function search_titular(){
     Metro.dialog.create({
         title: '<p>',
         content: '<div>'
-        +'<form  action=gest_titulares.php method=GET >'
+        +'<form  action=gest_titulares.php method=GET id=search_titular name=search_titular>'
             +'<input  type=text name=pagina id=pagina value=1 hidden>'
             +'<input  id=search name=search type=text  data-role=input data-prepend=".'"<span class=mif-search></span>"'." placeholder=Text autofocus>'
             +'<input type=submit hidden>'
@@ -325,7 +325,7 @@ function search_vehiculos(){
     Metro.dialog.create({
         title: '<p>',
         content: '<div>'
-        +'<form  action=gest_vehicles.php method=GET >'
+        +'<form  action=gest_vehicles.php method=GET id=search_vehiculos name=search_vehiculos>'
             +'<input  type=text name=pagina id=pagina value=1 hidden>'
             +'<input  id=search_a name=search type=text  data-role=input data-prepend=".'"<span class=mif-search></span>"'." placeholder=Text autofocus>'
             +'<input type=submit hidden>'
@@ -350,7 +350,7 @@ function search_adicionales(){
     Metro.dialog.create({
         title: '<p>',
         content: '<div>'
-        +'<form  action=gest_adicionales.php method=GET >'
+        +'<form  action=gest_adicionales.php method=GET id=search_adicionales name=search_adicionales>'
             +'<input  type=text name=pagina id=pagina value=1 hidden>'
             +'<input  id=search name=search type=text  data-role=input data-prepend=".'"<span class=mif-search></span>"'." placeholder=Text autofocus>'
             +'<input type=submit hidden>'

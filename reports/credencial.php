@@ -91,7 +91,6 @@ $codigoHTML.='
 	left: 25px;
 	font-size: .7em;
 	font-family: Arial, Helvetica, sans-serif;
-	background-color: LimeGreen;
 	">EXPEDICION: '.$expedicion.'</div>
 
 	<div style="
@@ -100,7 +99,6 @@ $codigoHTML.='
 	left: 25px;
 	font-size: .7em;
 	font-family: Arial, Helvetica, sans-serif;
-	background-color:LimeGreen;
 	color: red;
 	">VENCIMIENTO: '.$vencimiento.'</div>
 
@@ -116,7 +114,7 @@ $codigoHTML.='
 	left: 360px;
 	font-size: .7em;
 	font-family: Arial, Helvetica, sans-serif;
-	color: red;
+	color: black;
 	">NO. ENGOMADO: '.$engomado.'</div>
 
 	<div style="
@@ -125,7 +123,7 @@ $codigoHTML.='
 	left: 360px;
 	font-size: .7em;
 	font-family: Arial, Helvetica, sans-serif;
-	color: red;
+	color: black;
 	">MODELO: '.$modelo.'</div>
 
 	<div style="
@@ -134,7 +132,7 @@ $codigoHTML.='
 	left: 360px;
 	font-size: .7em;
 	font-family: Arial, Helvetica, sans-serif;
-	color: red;
+	color: black;
 	">MARCA: '.$marca.'</div>
 
 	<div style="
@@ -143,7 +141,7 @@ $codigoHTML.='
 	left: 360px;
 	font-size: .7em;
 	font-family: Arial, Helvetica, sans-serif;
-	color: red;
+	color: black;
 	">LINEA: '.$linea.'</div>
 
 	<div style="
@@ -152,7 +150,7 @@ $codigoHTML.='
 	left: 360px;
 	font-size: .7em;
 	font-family: Arial, Helvetica, sans-serif;
-	color: red;
+	color: black;
 	">TIPO: '.$tipo.'</div>
 
 	<div style="
@@ -161,7 +159,7 @@ $codigoHTML.='
 	left: 360px;
 	font-size: .7em;
 	font-family: Arial, Helvetica, sans-serif;
-	color: red;
+	color: black;
 	">SERIE: '.$serie.'</div>
 
 	<div style="
