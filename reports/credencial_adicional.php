@@ -20,7 +20,7 @@ $codigoHTML='
   background-position: top center;
   border-radius: 50%;
 	border: black 1px solid;
-	border-color: LimeGreen;
+	border-color: #00a54f;
 }
 
 .round80 {
@@ -30,7 +30,7 @@ $codigoHTML='
   background-position: top center;
   border-radius: 50%;
 	border: black 1px solid;
-	border-color: LimeGreen;
+	border-color: #00a54f;
 }
 
 .contenedor{
@@ -49,6 +49,14 @@ $codigoHTML='
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+@page {
+   size: 8.5cm 5.4cm;
+   margin-top: 0cm;
+	 margin-left: 0cm;
+	 margin-right: 0cm;
+   margin-bottom: 0cm;
+   border: 1px solid blue;
 }
 </style>
 <head>
@@ -77,107 +85,110 @@ while($r=mysql_fetch_array($sql)){
 }
 $codigoHTML.='
 <div class="contenedor">
-	<img src="../images/anverso.jpg" height="204" width="325">&nbsp;
-	<img src="../images/reverso.jpg" height="204" width="325">
-  <div style="
-	position: absolute;
-	top: 62px;
-	left: 135px;
-	font-size: .5em;">'.$nombre.'</div>
+<img src="../images/anverso.jpg" height="203" width="325">
 
-	<div style="
-	position: absolute;
-	top: 105px;
-	left: 25px;
-	font-size: .7em;
-	font-family: Arial, Helvetica, sans-serif;
-	background-color: LimeGreen;
-	">EXPEDICION: '.$expedicion.'</div>
+<div style="
+position: absolute;
+top: 62px;
+left: 120px;
+font-size: .5em;">'.$nombre.'</div>
 
-	<div style="
-	position: absolute;
-	top: 122px;
-	left: 25px;
-	font-size: .7em;
-	font-family: Arial, Helvetica, sans-serif;
-	background-color:LimeGreen;
-	color: red;
-	">VENCIMIENTO: '.$vencimiento.'</div>
+<div style="
+position: absolute;
+top: 105px;
+left: 25px;
+font-size: .7em;
+font-style:Helvetica;
+font-weight:bold;
+font-color:#ffffff;
+">EXPEDICION: '.$expedicion.'</div>
 
-	<div style="
-	position: absolute;
-	top: 105px;
-	left: 245px;
-	"><img class="round80" src="../'.$f_titular.'" ></div>
+<div style="
+position: absolute;
+top: 122px;
+left: 25px;
+font-size: .7em;
+font-style:Helvetica;
+font-weight:bold;
+font-color:#ffffff;
+color: red;
+">VENCIMIENTO: '.$vencimiento.'</div>
 
-	<div style="
-	position: absolute;
-	top: 8px;
-	left: 372px;
-	font-size: .7em;
-	font-family: Arial, Helvetica, sans-serif;
-	color: red;
-	">No. Engomado: '.$engomado.'</div>
+<div style="
+position: absolute;
+top: 105px;
+left: 230px;
+"><img class="round80" src="../'.$f_titular.'" ></div>
 
-	<div style="
-	position: absolute;
-	top: 26px;
-	left: 372px;
-	font-size: .7em;
-	font-family: Arial, Helvetica, sans-serif;
-	color: red;
-	">Modelo: '.$modelo.'</div>
+<img src="../images/reverso.jpg" height="203" width="325">
 
-	<div style="
-	position: absolute;
-	top: 43px;
-	left: 372px;
-	font-size: .7em;
-	font-family: Arial, Helvetica, sans-serif;
-	color: red;
-	">Marca: '.$marca.'</div>
+<div style="
+position: absolute;
+top: 8px;
+left: 10px;
+font-size: .7em;
+font-family: Arial, Helvetica, sans-serif;
+color: black;
+">NO. ENGOMADO: '.$engomado.'</div>
 
-	<div style="
-	position: absolute;
-	top: 60px;
-	left: 372px;
-	font-size: .7em;
-	font-family: Arial, Helvetica, sans-serif;
-	color: red;
-	">Linea: '.$linea.'</div>
+<div style="
+position: absolute;
+top: 26px;
+left: 10px;
+font-size: .7em;
+font-family: Arial, Helvetica, sans-serif;
+color: black;
+">MODELO: '.$modelo.'</div>
 
-	<div style="
-	position: absolute;
-	top: 78px;
-	left: 372px;
-	font-size: .7em;
-	font-family: Arial, Helvetica, sans-serif;
-	color: red;
-	">Tipo: '.$tipo.'</div>
+<div style="
+position: absolute;
+top: 43px;
+left: 10px;
+font-size: .7em;
+font-family: Arial, Helvetica, sans-serif;
+color: black;
+">MARCA: '.$marca.'</div>
 
-	<div style="
-	position: absolute;
-	top: 96px;
-	left: 372px;
-	font-size: .7em;
-	font-family: Arial, Helvetica, sans-serif;
-	color: red;
-	">Serie: '.$serie.'</div>
+<div style="
+position: absolute;
+top: 60px;
+left: 10px;
+font-size: .7em;
+font-family: Arial, Helvetica, sans-serif;
+color: black;
+">LINEA: '.$linea.'</div>
 
-	<div style="
-	position: absolute;
-	top: 9px;
-	left: 544px;
-	"><img class="round100" src="../'.$f_vehiculo.'" ></div>
+<div style="
+position: absolute;
+top: 78px;
+left: 10px;
+font-size: .7em;
+font-family: Arial, Helvetica, sans-serif;
+color: black;
+">TIPO: '.$tipo.'</div>
+
+<div style="
+position: absolute;
+top: 96px;
+left: 10px;
+font-size: .7em;
+font-family: Arial, Helvetica, sans-serif;
+color: black;
+">SERIE: '.$serie.'</div>
+
+<div style="
+position: absolute;
+top: 8.5px;
+left: 195px;
+"><img class="round100" src="../'.$f_vehiculo.'" ></div>
 
 </div>
 </body>
 </html>';
 $codigoHTML=utf8_encode($codigoHTML);
 $dompdf=new DOMPDF();
-$dompdf->set_paper('letter', '');
 $dompdf->load_html($codigoHTML);
-ini_set("memory_limit","128M");
+ini_set("memory_limit","1024M");
 $dompdf->render();
 $dompdf->stream("Credencial".$id.".pdf");
 ?>
