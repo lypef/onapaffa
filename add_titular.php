@@ -55,7 +55,7 @@
       {
           Metro.notify.create("Error al cargar imagen", "<span class='mif-cross'></span>", {cls: "alert"});
       }
-        var nombre = getUrlVars()["nombre"].replace("%", " ").replace("%", " ").replace("%", " ").replace("%", " ").replace("%", " ");
+        var nombre = getUrlVars()["nombre"].replace("%20", " ").replace("%20", " ").replace("%20", " ").replace("%20", " ");
         var domicilio = getUrlVars()["domicilio"].replace("%", " ").replace("%", " ").replace("%", " ").replace("%", " ").replace("%", " ");
         var cp = getUrlVars()["cp"].replace("%", " ").replace("%", " ").replace("%", " ").replace("%", " ").replace("%", " ").replace("%", " ");
         var telefono = getUrlVars()["telefono"].replace("%", " ").replace("%", " ").replace("%", " ").replace("%", " ").replace("%", " ").replace("%", " ");

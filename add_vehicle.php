@@ -65,27 +65,30 @@
 <br><br>
 <?php include 'func/footer.php' ?>
 <script>
-      //location.href = "href/welcome.php"
-      var error = getUrlVars()["error"];
-      if (error)
+
+      if (getUrlVars()["error"])
       {
-          Metro.notify.create("Titular NO agregado", "<span class='mif-cross'></span>", {cls: "alert"});
+          Metro.notify.create("Titular NO agregado", "<span class='mif-cross'></span> Error", {cls: "alert"});
       }
 
-      var success = getUrlVars()["success"];
-      if (success)
+      if (getUrlVars()["success"])
       {
-          Metro.notify.create("Vehiculo agregado", "<span class='mif-checkmark'></span>", {cls: "success"});
+          Metro.notify.create("Vehiculo agregado", "<span class='mif-checkmark'></span> Agregado", {cls: "success"});
       }
 
-      var image = getUrlVars()["error_image"];
-      if (image)
+      if (getUrlVars()["error_image"])
       {
-          Metro.notify.create("Error al cargar imagen", "<span class='mif-cross'></span>", {cls: "alert"});
+          Metro.notify.create("Error al cargar imagen", "<span class='mif-cross'></span> Error imagen", {cls: "alert"});
+      }
+
+      if (getUrlVars()["engomado_exist"])
+      {
+          Metro.notify.create("El engomado ya existe", "<span class='mif-cross'></span> Duplicado", {cls: "alert"});
       }
 
         document.getElementById("titular").value = getUrlVars()["titular"].replace("%", " ");
         document.getElementById("serie").value = getUrlVars()["serie"].replace("%", " ");
+        document.getElementById("linea").value = getUrlVars()["linea"].replace("%", " ");
         document.getElementById("tipo").value = getUrlVars()["tipo"].replace("%", " ");
         document.getElementById("modelo").value = getUrlVars()["modelo"].replace("%", " ");
         document.getElementById("marca").value = getUrlVars()["marca"].replace("%", " ");
