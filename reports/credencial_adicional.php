@@ -149,8 +149,8 @@ position: absolute;
 top: 62px;
 left: 120px;
 font-style:Arial Narrow;
-font-weight:bold;
-font-size: .5em;">'.$nombre.'</div>
+font-weight: bolder;
+font-size: .6em;">'.$nombre.'</div>
 
 <div style="
 position: absolute;
@@ -158,7 +158,7 @@ top: 105px;
 left: 20px;
 font-size: .7em;
 font-style:Arial Narrow;
-font-weight:bold;
+font-weight: 900;
 font-color:#ffffff;
 ">EXPEDICION: '.fecha($expedicion).'</div>
 
@@ -168,7 +168,7 @@ top: 122px;
 left: 20px;
 font-size: .7em;
 font-style:Arial Narrow;
-font-weight:bold;
+font-weight: 900;
 font-color:#ffffff;
 color: red;
 ">VENCIMIENTO: '.fecha($vencimiento).'</div>
