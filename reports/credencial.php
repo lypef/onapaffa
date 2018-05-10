@@ -148,6 +148,7 @@ $codigoHTML.='
 position: absolute;
 top: 62px;
 left: 120px;
+font-style:Arial Narrow;
 font-size: .5em;">'.$nombre.'</div>
 
 <div style="
@@ -300,7 +301,7 @@ left: 195px;
 $codigoHTML=utf8_encode($codigoHTML);
 $dompdf=new DOMPDF();
 $dompdf->load_html($codigoHTML);
-ini_set("memory_limit","1024M");
+ini_set("memory_limit","128M");
 $dompdf->render();
 $dompdf->stream("Credencial".$id.".pdf");
 ?>
