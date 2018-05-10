@@ -9,6 +9,63 @@
 				$id = $_GET["id"];
 		}
 
+function fecha ($fecha)
+{
+	$arr = explode("-", $fecha);
+	$arr[0];
+	$arr[1];
+	if ($arr[1] == "01")
+	{
+		$mes = "ENE";
+	}
+	if ($arr[1] == "02")
+	{
+		$mes = "FEB";
+	}
+	if ($arr[1] == "03")
+	{
+		$mes = "MAR";
+	}
+	if ($arr[1] == "04")
+	{
+		$mes = "ABR";
+	}
+	if ($arr[1] == "05")
+	{
+		$mes = "MAY";
+	}
+	if ($arr[1] == "06")
+	{
+		$mes = "JUN";
+	}
+	if ($arr[1] == "07")
+	{
+		$mes = "JUL";
+	}
+	if ($arr[1] == "08")
+	{
+		$mes = "AGO";
+	}
+	if ($arr[1] == "09")
+	{
+		$mes = "SEP";
+	}
+	if ($arr[1] == "10")
+	{
+		$mes = "OCT";
+	}
+	if ($arr[1] == "11")
+	{
+		$mes = "NOV";
+	}
+	if ($arr[1] == "12")
+	{
+		$mes = "DIC";
+	}
+	$arr[2];
+	return $arr[2].'/'.$mes.'/'.$arr[0];
+}
+
 $codigoHTML='
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -96,23 +153,23 @@ font-size: .5em;">'.$nombre.'</div>
 <div style="
 position: absolute;
 top: 105px;
-left: 25px;
+left: 20px;
 font-size: .7em;
-font-style:Helvetica;
+font-style:Arial Narrow;
 font-weight:bold;
 font-color:#ffffff;
-">EXPEDICION: '.$expedicion.'</div>
+">EXPEDICION: '.fecha($expedicion).'</div>
 
 <div style="
 position: absolute;
 top: 122px;
-left: 25px;
+left: 20px;
 font-size: .7em;
-font-style:Helvetica;
+font-style:Arial Narrow;
 font-weight:bold;
 font-color:#ffffff;
 color: red;
-">VENCIMIENTO: '.$vencimiento.'</div>
+">VENCIMIENTO: '.fecha($vencimiento).'</div>
 
 <div style="
 position: absolute;
@@ -125,56 +182,111 @@ left: 230px;
 <div style="
 position: absolute;
 top: 8px;
-left: 10px;
+left: 12px;
 font-size: .7em;
-font-family: Arial, Helvetica, sans-serif;
+font-family: Arial Blak;
+color: red;
+">NO. ENGOMADO: </div>
+
+<div style="
+position: absolute;
+top: 8px;
+left: 107px;
+font-size: .7em;
+font-family: Arial Blak;
 color: black;
-">NO. ENGOMADO: '.$engomado.'</div>
+">'.$engomado.'</div>
 
 <div style="
 position: absolute;
 top: 26px;
-left: 10px;
+left: 12px;
 font-size: .7em;
-font-family: Arial, Helvetica, sans-serif;
+font-family: Arial Blak;
+color: red;
+">MODELO: </div>
+
+<div style="
+position: absolute;
+top: 26px;
+left: 65px;
+font-size: .7em;
+font-family: Arial Blak;
 color: black;
-">MODELO: '.$modelo.'</div>
+">'.$modelo.'</div>
 
 <div style="
 position: absolute;
 top: 43px;
-left: 10px;
+left: 12px;
 font-size: .7em;
-font-family: Arial, Helvetica, sans-serif;
+font-family: Arial Blak;
+color: red;
+">MARCA:</div>
+
+<div style="
+position: absolute;
+top: 43px;
+left: 65px;
+font-size: .7em;
+font-family: Arial Blak;
 color: black;
-">MARCA: '.$marca.'</div>
+">'.$marca.'</div>
 
 <div style="
 position: absolute;
 top: 60px;
-left: 10px;
+left: 12px;
 font-size: .7em;
-font-family: Arial, Helvetica, sans-serif;
+font-family: Arial Blak;
+color: red;
+">LINEA:</div>
+
+<div style="
+position: absolute;
+top: 60px;
+left: 65px;
+font-size: .7em;
+font-family: Arial Blak;
 color: black;
-">LINEA: '.$linea.'</div>
+">'.$linea.'</div>
 
 <div style="
 position: absolute;
 top: 78px;
-left: 10px;
+left: 12px;
 font-size: .7em;
-font-family: Arial, Helvetica, sans-serif;
+font-family: Arial Blak;
+color: red;
+">TIPO:</div>
+
+<div style="
+position: absolute;
+top: 78px;
+left: 65px;
+font-size: .7em;
+font-family: Arial Blak;
 color: black;
-">TIPO: '.$tipo.'</div>
+">'.$tipo.'</div>
+
 
 <div style="
 position: absolute;
 top: 96px;
-left: 10px;
+left: 12px;
 font-size: .7em;
-font-family: Arial, Helvetica, sans-serif;
+font-family: Arial Blak;
+color: red;
+">SERIE:</div>
+
+<div style="
+position: absolute;
+top: 96px;
+left: 65px;
+font-size: .7em;
+font-family: Arial Blak;
 color: black;
-">SERIE: '.$serie.'</div>
+">'.$serie.'</div>
 
 <div style="
 position: absolute;
